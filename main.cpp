@@ -3,8 +3,12 @@
 
 #include <list>
 #include "mapa.cpp"
-
+#include "Sprite.cpp"
 using namespace std;
+template <class pr>
+void Show2(pr &d){
+    std::cout<<d<<",";
+}
 
 int main(){
 
@@ -12,8 +16,18 @@ int main(){
 
 
 
+
     mapa mp;
-    mp.imprimirXY();
+
+    cout<<"-------------Matriz---------------"<<endl;
+    mp.imprimir();
+    cout<<"-------------CON OBSTACULOS---------------"<<endl;
+
+    mp.colocarObstaculos();
+    cout<<"-------------Matriz---------------"<<endl;
+    mp.imprimir();
+
+
 
     return 0;
 }

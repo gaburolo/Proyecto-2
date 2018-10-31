@@ -2,83 +2,124 @@
 #define PRUEBAS22_MAPA_H
 #include <iostream>
 #include "ListaSimple.h"
-
+#include "Sprite.cpp"
 #include <list>
 using namespace std;
+
+
+
+template <class pr>
+void Show(pr &d){
+    std::cout<<d<<",";
+}
+
+
 class mapa {
 private:
-    list<Lista<int>> listY;
-    Lista<int> listaX;
-
-    std::list<Lista<int>>::iterator itr;
+    int con=0;
+    Lista<Sprite> listaX;
+    Lista<Sprite> listaX2;
+    Lista<Sprite> listaX3;
+    Lista<Sprite> listaX4;
+    Lista<Sprite> listaX5;
+    Lista<Sprite> listaX6;
+    Lista<Sprite> listaX7;
+    Lista<Sprite> listaX8;
+    Lista<Sprite> listaX9;
+    Lista<Sprite> listaX10;
+    Lista<Sprite> *listaY=new Lista<Sprite>[10];
+    Sprite vacio=Sprite("vacio",'N',0,0);
+    Sprite obstaculo=Sprite("arbol",'N',0,0);
 public:
     mapa(){
 
+
         for(int i=0; i<10;i++){
-            listaX.FinalInsert(i);
+
+            listaX.FinalInsert(vacio);
+            listaX2.FinalInsert(vacio);
+            listaX3.FinalInsert(vacio);
+            listaX4.FinalInsert(vacio);
+            listaX5.FinalInsert(vacio);
+            listaX6.FinalInsert(vacio);
+            listaX7.FinalInsert(vacio);
+            listaX8.FinalInsert(vacio);
+            listaX9.FinalInsert(vacio);
+            listaX10.FinalInsert(vacio);
+
         }
 
-        for(int j=0; j<10;j++){
-            listY.push_back(listaX);
-        }
 
-
-
+        listaY[0]=listaX;
+        listaY[1]=listaX2;
+        listaY[2]=listaX3;
+        listaY[3]=listaX4;
+        listaY[4]=listaX5;
+        listaY[5]=listaX6;
+        listaY[6]=listaX7;
+        listaY[7]=listaX8;
+        listaY[8]=listaX9;
+        listaY[9]=listaX10;
         actualizarXY();
 
 
     }
 
     void imprimir(){
-        cout<<"{"<<endl;
-
-        for (itr=listY.begin(); itr != listY.end(); itr++)
-        {
-            Lista<int>tl=*itr;
-
-
-            for (int in=0; in<10; in++)
-            {
-                cout<<"{"<<listaX.get_Data(in)<<"},";
+        for(int k=0;k<10;k++) {
+            for(int t=0;t<10;t++){
+                cout<<"{"<<listaY[k].get_Data(t).nombre<<"},";
             }
-            cout<<endl;
 
-        }cout<<"}"<<endl;
+            cout<<endl;
+        }
     }
     void actualizarXY(){
 
-        int temp=0;
-        for (itr=listY.begin(); itr != listY.end(); itr++)
-        {
-            Lista<int>tl=*itr;
-
-
-            for (int iny=0; iny<10; iny++)
-            {
-
-                tl.get_Nodo(iny)->X=iny*50;
-                tl.get_Nodo(iny)->posY=temp;
-
+        for(int i=0;i<10;i++){
+            for (int j = 0; j <10 ; ++j) {
+                listaY[i].get_Nodo(j)->X=j*50;
+                listaY[i].get_Nodo(j)->posY=i*50;
 
             }
-temp++;
         }
     }void imprimirXY(){
-        cout<<"{dsfd"<<endl;
-        for (itr=listY.begin(); itr != listY.end(); itr++)
-        {
-            Lista<int>tl=*itr;
+        cout<<"{"<<endl;
+        for(int i=0;i<10;i++){
+            for (int j = 0; j <10 ; ++j) {
+                cout<<"X: "<<listaY[i].get_Nodo(j)->X<<"-Y: ";
+                cout<<listaY[i].get_Nodo(j)->posY<<"next->";
 
-
-            for (int ine=0; ine<10; ine++)
-            {
-
-                cout<<tl.get_Nodo(ine)->X<<" ";
-                cout<<tl.get_Nodo(ine)->posY<<"-";
             }
             cout<<endl;
         }
 
+    }void imprimirPeso(){
+
+        cout<<"{"<<endl;
+        for(int i=0;i<10;i++){
+            for (int j = 0; j <10 ; ++j) {
+                cout<<"{";
+                cout<<listaY[i].get_Nodo(j)->peso;
+                cout<<"},";
+
+            }
+            cout<<endl;
+        }cout<<"}";
+    }void colocarObstaculos(){
+        while(con<30){
+            int z=rand()%10;
+            int z2=rand()%10;
+            if((z!=0 && z2!=0) &&(z!=9 && z2!=9) ){
+                listaY[z].ChangeDataPos(obstaculo,z2);
+                listaY[z].get_Nodo(z2)->peso=0;
+            }else{
+                return colocarObstaculos();
+            }
+
+            con++;
+        }
+        con=0;
     }
 };
 

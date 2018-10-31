@@ -1,17 +1,20 @@
 #ifndef LISTASIMPLE
 #define LISTASIMPLE
 
+#include "stdlib.h"
 #include <iostream>
 //// Clase local de Lista para Nodo de Lista:
 template<class DATON>
 class Nodo {
+
 public:
     // Constructor:
-    Nodo(const DATON dat, Nodo<DATON> *sig,int y) : data(dat), next(sig) {}
+    Nodo(const DATON dat, Nodo<DATON> *sig) : data(dat), next(sig) {}
     // Attributes
 public:
+
     DATON data;
-    int peso;
+    int peso=rand()%7+1;
     int X;
     int posY;
 
