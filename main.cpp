@@ -23,11 +23,15 @@ int main(){
     mp.imprimir();
     cout<<"-------------CON OBSTACULOS---------------"<<endl;
 
+
+    mp.agregarSprites();
     mp.colocarObstaculos();
     cout<<"-------------Matriz---------------"<<endl;
     mp.imprimir();
 
-
+    mp.deteccionE();
+    cout<<"-------------Matriz-Enemigo eliminado--------------"<<endl;
+    mp.imprimir();
 
     return 0;
 }

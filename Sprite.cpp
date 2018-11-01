@@ -16,16 +16,15 @@ public:
     char elemento;
 
 public:
+    Sprite(){
 
+    }
     Sprite(std::string name, char power, int x, int y){
         stamina = 100;
         posx = x;
         posy = y;
         nombre = name;
         elemento = power;
-
-
-
     }
 
 
