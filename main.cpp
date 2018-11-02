@@ -32,6 +32,7 @@ int main(){
     mp.deteccionE();
     cout<<"-------------Matriz-Enemigo eliminado--------------"<<endl;
     mp.imprimir();
+    mp.imprimirXY();
 
     return 0;
 }

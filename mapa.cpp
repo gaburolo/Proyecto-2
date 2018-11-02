@@ -80,6 +80,7 @@ public:
     }
 
     void imprimir(){
+
         for(int k=0;k<10;k++) {
             for(int t=0;t<10;t++){
                 cout<<"{"<<listaY[k].get_Data(t).nombre<<"},";
@@ -87,6 +88,7 @@ public:
 
             cout<<endl;
         }
+
     }
     void actualizarXY(){
 
@@ -125,13 +127,19 @@ public:
             int z=rand()%10;
             int z2=rand()%10;
             if((z!=0 && z2!=0) &&(z!=9 && z2!=9) ){
-                listaY[z].ChangeDataPos(obstaculo,z2);
-                listaY[z].get_Nodo(z2)->peso=0;
+                if(listaY[z].get_Data(z2).nombre=="vacio"){
+                    listaY[z].ChangeDataPos(obstaculo,z2);
+                    listaY[z].get_Nodo(z2)->peso=0;
+
+                    con++;
+                }else{
+                    return colocarObstaculos();
+                }
             }else{
                 return colocarObstaculos();
             }
 
-            con++;
+
         }
         con=0;
     }void agregarSprites() {
@@ -143,11 +151,11 @@ public:
 
     }void deteccionE(){
 
-        cout<<Enemigos.get_Data(3).nombre<<endl;
+
 
 
         int contador=0;
-        while(contador<1){
+        while(contador<4){
             if(Soldados[0].posy!=0 &&listaY[(Soldados[0].posy-1)].get_Nodo(Soldados[0].posx)->data.nombre=="Enemigo"){
                 listaY[(Soldados[0].posy-1)].get_Nodo(Soldados[0].posx)->data=vacio;
                 if(Enemigos.get_Data(0).posy==Soldados[0].posy-1 && Enemigos.get_Data(0).posx==Soldados[0].posx){
