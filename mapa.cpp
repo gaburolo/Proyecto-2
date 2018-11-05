@@ -41,10 +41,10 @@ private:
     Sprite obstaculo=Sprite("arbol",'N',0,0);
     Sprite s1=Sprite("soldado",'d',0,0);
     //CAmbiar aqui
-    Sprite s2=Sprite("soldado",'d',9,1);
+    Sprite s2=Sprite("soldado",'d',0,1);
     Sprite s3=Sprite("soldado",'d',0,2);
     Sprite s4=Sprite("soldado",'d',0,3);
-    Sprite s5=Sprite("soldado",'d',1,7);
+    Sprite s5=Sprite("soldado",'d',1,0);
     Sprite s6=Sprite("soldado",'v',1,1);
     Sprite s7=Sprite("soldado",'v',1,2);
     Sprite s8=Sprite("soldado",'v',1,3);
@@ -80,6 +80,9 @@ public:
         crearLista();
         insertarSoldados();
         insertarEnemigos();
+        agregarSprites();
+        agregarSpritesE();
+        colocarObstaculos();
         actualizarXY();
     }
 
@@ -89,6 +92,23 @@ private:
         Enemigos.FinalInsert(ene2);
         Enemigos.FinalInsert(ene3);
         Enemigos.FinalInsert(ene4);
+        Enemigos.FinalInsert(ene5);
+        Enemigos.FinalInsert(ene6);
+        Enemigos.FinalInsert(ene7);
+        Enemigos.FinalInsert(ene8);
+        Enemigos.FinalInsert(ene9);
+        Enemigos.FinalInsert(ene10);
+        Enemigos.FinalInsert(ene11);
+        Enemigos.FinalInsert(ene12);
+        Enemigos.FinalInsert(ene13);
+        Enemigos.FinalInsert(ene14);
+        Enemigos.FinalInsert(ene15);
+        Enemigos.FinalInsert(ene16);
+        Enemigos.FinalInsert(ene17);
+        Enemigos.FinalInsert(ene18);
+        Enemigos.FinalInsert(ene19);
+        Enemigos.FinalInsert(ene20);
+
     }
     void crearLista(){
         for(int i=0; i<15;i++){
@@ -153,6 +173,58 @@ private:
             }
         }
     }
+    void colocarObstaculos(){
+        while(con<30){
+            int z=rand()%15;
+            int z2=rand()%15;
+            if((z!=0 && z2!=0) &&(z!=14 && z2!=14) ){
+                if(listaY[z].get_Data(z2).nombre=="vacio"){
+                    listaY[z].ChangeDataPos(obstaculo,z2);
+                    listaY[z].get_Nodo(z2)->peso=0;
+
+                    con++;
+                }else{
+                    return colocarObstaculos();
+                }
+            }else{
+                return colocarObstaculos();
+            }
+
+
+        }
+        con=0;
+    }void agregarSprites() {
+        for(int i=0;i<15;i++){
+            listaY[Soldados.get_Data(i).posy].ChangeDataPos(Soldados.get_Data(i), Soldados.get_Data(i).posx);
+        }
+
+
+
+    }
+    void agregarSpritesE(){
+        while(con<20){
+            int z=rand()%15;
+            int z2=rand()%15;
+
+            if((z!=0 && z2!=0) &&(z!=14 && z2!=14) ){
+                if(listaY[z].get_Data(z2).nombre=="vacio"){
+                    Enemigos.get_Nodo(con)->data.posx=z;
+                    Enemigos.get_Nodo(con)->data.posy=z2;
+
+                    listaY[Enemigos.get_Data(con).posy].ChangeDataPos(Enemigos.get_Data(con),Enemigos.get_Data(con).posx);
+
+
+                    con++;
+                }else{
+                    return agregarSpritesE();
+                }
+            }else{
+                return agregarSpritesE();
+            }
+        }
+
+
+    }
 public:
     void imprimir(){
 
@@ -188,37 +260,24 @@ public:
             }
             cout<<endl;
         }cout<<"}";
-    }void colocarObstaculos(){
-        while(con<30){
-            int z=rand()%10;
-            int z2=rand()%10;
-            if((z!=0 && z2!=0) &&(z!=9 && z2!=9) ){
-                if(listaY[z].get_Data(z2).nombre=="vacio"){
-                    listaY[z].ChangeDataPos(obstaculo,z2);
-                    listaY[z].get_Nodo(z2)->peso=0;
+    }
 
-                    con++;
-                }else{
-                    return colocarObstaculos();
+    void contarArboles(){
+        int csddsa=0;
+        for(int k=0;k<15;k++) {
+            for(int t=0;t<15;t++){
+                if(listaY[k].get_Data(t).nombre=="arbol"){
+                    csddsa++;
                 }
-            }else{
-                return colocarObstaculos();
             }
 
 
-        }
-        con=0;
-    }void agregarSprites() {
-        for(int i=0;i<15;i++){
-            listaY[Soldados.get_Data(i).posy].ChangeDataPos(Soldados.get_Data(i), Soldados.get_Data(i).posx);
-        }
+        }cout<<csddsa<<endl;
 
-        listaY[Enemigos.get_Data(0).posy].ChangeDataPos(Enemigos.get_Data(0),Enemigos.get_Data(0).posx);
-        listaY[Enemigos.get_Data(1).posy].ChangeDataPos(Enemigos.get_Data(1),Enemigos.get_Data(1).posx);
-        listaY[Enemigos.get_Data(2).posy].ChangeDataPos(Enemigos.get_Data(2),Enemigos.get_Data(2).posx);
-        listaY[Enemigos.get_Data(3).posy].ChangeDataPos(Enemigos.get_Data(3),Enemigos.get_Data(3).posx);
 
-    }void deteccionE(){
+    }
+
+    void deteccionE(){
 
 
 

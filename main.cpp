@@ -22,17 +22,14 @@ cout<<hola<<endl;
 
     cout<<"-------------Matriz---------------"<<endl;
     mp.imprimir();
-    cout<<"-------------CON OBSTACULOS---------------"<<endl;
 
-
-    mp.agregarSprites();
-    //mp.colocarObstaculos();
-    cout<<"-------------Matriz---------------"<<endl;
-    mp.imprimir();
 
     mp.deteccionE();
     cout<<"-------------Matriz-Enemigo eliminado--------------"<<endl;
     mp.imprimir();
+
+    cout<<"-------------Matriz-Enemigo eliminado--------------"<<endl;
+    mp.contarArboles();
 
 
     return 0;
