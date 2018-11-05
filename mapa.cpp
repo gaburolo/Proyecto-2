@@ -27,7 +27,12 @@ private:
     Lista<Sprite> listaX8;
     Lista<Sprite> listaX9;
     Lista<Sprite> listaX10;
-    Lista<Sprite> *listaY=new Lista<Sprite>[10];
+    Lista<Sprite> listaX11;
+    Lista<Sprite> listaX12;
+    Lista<Sprite> listaX13;
+    Lista<Sprite> listaX14;
+    Lista<Sprite> listaX15;
+    Lista<Sprite> *listaY=new Lista<Sprite>[15];
     Sprite *Soldados=new Sprite[15];
     Lista<Sprite> Enemigos;
 
@@ -43,7 +48,7 @@ public:
     mapa(){
 
 
-        for(int i=0; i<10;i++){
+        for(int i=0; i<15;i++){
 
             listaX.FinalInsert(vacio);
             listaX2.FinalInsert(vacio);
@@ -55,6 +60,11 @@ public:
             listaX8.FinalInsert(vacio);
             listaX9.FinalInsert(vacio);
             listaX10.FinalInsert(vacio);
+            listaX11.FinalInsert(vacio);
+            listaX12.FinalInsert(vacio);
+            listaX13.FinalInsert(vacio);
+            listaX14.FinalInsert(vacio);
+            listaX15.FinalInsert(vacio);
 
         }
         Soldados[0]=s1;
@@ -74,6 +84,11 @@ public:
         listaY[7]=listaX8;
         listaY[8]=listaX9;
         listaY[9]=listaX10;
+        listaY[10]=listaX6;
+        listaY[11]=listaX7;
+        listaY[12]=listaX8;
+        listaY[13]=listaX9;
+        listaY[14]=listaX10;
         actualizarXY();
 
 
@@ -81,8 +96,8 @@ public:
 
     void imprimir(){
 
-        for(int k=0;k<10;k++) {
-            for(int t=0;t<10;t++){
+        for(int k=0;k<15;k++) {
+            for(int t=0;t<15;t++){
                 cout<<"{"<<listaY[k].get_Data(t).nombre<<"},";
             }
 
@@ -92,8 +107,8 @@ public:
     }
     void actualizarXY(){
 
-        for(int i=0;i<10;i++){
-            for (int j = 0; j <10 ; ++j) {
+        for(int i=0;i<15;i++){
+            for (int j = 0; j <15 ; ++j) {
                 listaY[i].get_Nodo(j)->X=j*50;
                 listaY[i].get_Nodo(j)->posY=i*50;
 
@@ -101,8 +116,8 @@ public:
         }
     }void imprimirXY(){
         cout<<"{"<<endl;
-        for(int i=0;i<10;i++){
-            for (int j = 0; j <10 ; ++j) {
+        for(int i=0;i<15;i++){
+            for (int j = 0; j <15 ; ++j) {
                 cout<<"X: "<<listaY[i].get_Nodo(j)->X<<"-Y: ";
                 cout<<listaY[i].get_Nodo(j)->posY<<"next->";
 
@@ -113,8 +128,8 @@ public:
     }void imprimirPeso(){
 
         cout<<"{"<<endl;
-        for(int i=0;i<10;i++){
-            for (int j = 0; j <10 ; ++j) {
+        for(int i=0;i<15;i++){
+            for (int j = 0; j <15 ; ++j) {
                 cout<<"{";
                 cout<<listaY[i].get_Nodo(j)->peso;
                 cout<<"},";
