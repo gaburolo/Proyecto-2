@@ -26,7 +26,7 @@ cout<<hola<<endl;
 
 
     mp.agregarSprites();
-    mp.colocarObstaculos();
+    //mp.colocarObstaculos();
     cout<<"-------------Matriz---------------"<<endl;
     mp.imprimir();
 
