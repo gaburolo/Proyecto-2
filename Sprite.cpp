@@ -9,7 +9,7 @@
 
 class Sprite{
 public:
-    int  stamina;
+    int  stamina=100;
     int posx;
     int posy;
     std::string nombre;
@@ -20,13 +20,136 @@ public:
 
     }
     Sprite(std::string name, char power, int x, int y){
-        stamina = 100;
+
         posx = x;
         posy = y;
         nombre = name;
         elemento = power;
     }
+    void digievolucion(char setTipo){
 
+        if (setTipo == 'x'){
+            elemento = 'v';
+        }
+        else if (setTipo == 'd'){
+            elemento = 'x';
+        }
+        else{
+            elemento = 'd';
+        }
+    }
+
+    int atacado(char tipo){
+
+        if (elemento == 'x'){
+            if (tipo == 'v'){
+                stamina = stamina-100;
+                if (stamina <= 0){
+                    elemento = tipo;
+                    stamina = 100;
+                    return 0;
+                }
+                else{
+                    return stamina;
+                }
+
+            }
+            else if (tipo == 'x'){
+                stamina = stamina -50;
+                if (stamina <= 0){
+                    elemento = tipo;
+                    stamina = 100;
+                    return 0;
+                }
+                else{
+                    return stamina;
+                }
+            }
+            else{
+
+                stamina = stamina -25;
+                if (stamina <= 0){
+                    std::cout<<"pos si"<<std::endl;
+                    elemento = tipo;
+                    stamina = 100;
+                    return 0;
+                }
+                else{
+                    return stamina;
+                }
+            }
+        } else if (elemento == 'v'){
+            if (tipo == 'd'){
+                stamina = stamina - 100;
+                if (stamina <= 0){
+                    elemento = tipo;
+                    stamina = 100;
+                    return 0;
+                }
+                else{
+                    return stamina;
+                }
+            }
+            else if (tipo == 'v'){
+                stamina = stamina - 50;
+                if (stamina <= 0){
+                    elemento = tipo;
+                    stamina = 100;
+                    return 0;
+                }
+                else{
+                    return stamina;
+                }
+            }
+            else{
+                stamina = stamina -25;
+                if (stamina <= 0){
+                    elemento = tipo;
+                    stamina = 100;
+                    return 0;
+                }
+                else{
+                    return stamina;
+                }
+            }
+        }
+        else{
+            if (tipo == 'x'){
+                stamina = stamina - 100;
+                if (stamina <= 0){
+                    elemento = tipo;
+                    stamina = 100;
+                    return 0;
+                }
+                else{
+                    return stamina;
+                }
+            }
+            else if (tipo == 'd'){
+                stamina = stamina - 50;
+                if (stamina <= 0){
+                    elemento = tipo;
+                    stamina = 100;
+                    return 0;
+                }
+                else{
+                    return stamina;
+                }
+            }
+            else{
+                stamina = stamina -25;
+                if (stamina <= 0){
+                    elemento = tipo;
+                    stamina = 100;
+                    return 0;
+                }
+                else{
+                    return stamina;
+                }
+
+            }
+        }
+    }
 
 
 };

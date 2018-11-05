@@ -12,7 +12,8 @@ void Show2(pr &d){
 
 int main(){
 
-
+char hola='Hola';
+cout<<hola<<endl;
 
 
 
@@ -32,7 +33,7 @@ int main(){
     mp.deteccionE();
     cout<<"-------------Matriz-Enemigo eliminado--------------"<<endl;
     mp.imprimir();
-    mp.imprimirXY();
+
 
     return 0;
 }
