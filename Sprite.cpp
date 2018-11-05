@@ -40,8 +40,29 @@ public:
     }
 
     int atacado(char tipo){
+        if(elemento=='n'){
+            if (tipo == 'v'){
+                    elemento = tipo;
+                    stamina = 100;
+                    return 0;
 
-        if (elemento == 'x'){
+
+            }
+            else if (tipo == 'x'){
+
+                    elemento = tipo;
+                    stamina = 100;
+                    return 0;
+
+            }
+            else{
+                    elemento = tipo;
+                    stamina = 100;
+                    return 0;
+
+            }
+        }
+        else if (elemento == 'x'){
             if (tipo == 'v'){
                 stamina = stamina-100;
                 if (stamina <= 0){

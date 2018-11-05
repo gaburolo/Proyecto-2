@@ -40,24 +40,41 @@ private:
     Sprite vacio=Sprite("vacio",'N',0,0);
     Sprite obstaculo=Sprite("arbol",'N',0,0);
     Sprite s1=Sprite("soldado",'d',0,0);
-    Sprite s2=Sprite("soldado",'d',0,1);
+    //CAmbiar aqui
+    Sprite s2=Sprite("soldado",'d',9,1);
     Sprite s3=Sprite("soldado",'d',0,2);
     Sprite s4=Sprite("soldado",'d',0,3);
-    Sprite s5=Sprite("soldado",'d',1,0);
-    Sprite s6=Sprite("soldado",'d',1,1);
-    Sprite s7=Sprite("soldado",'d',1,2);
-    Sprite s8=Sprite("soldado",'d',1,3);
-    Sprite s9=Sprite("soldado",'d',2,0);
-    Sprite s10=Sprite("soldado",'d',2,1);
-    Sprite s11=Sprite("soldado",'d',2,2);
-    Sprite s12=Sprite("soldado",'d',2,3);
-    Sprite s13=Sprite("soldado",'d',3,0);
-    Sprite s14=Sprite("soldado",'d',3,1);
-    Sprite s15=Sprite("soldado",'d',3,2);
-    Sprite ene1=Sprite("Enemigo",'x',7,0);
-    Sprite ene2=Sprite("Enemigo",'d',7,1);
-    Sprite ene3=Sprite("Enemigo",'x',7,2);
-    Sprite ene4=Sprite("Enemigo",'v',7,1);
+    Sprite s5=Sprite("soldado",'d',1,7);
+    Sprite s6=Sprite("soldado",'v',1,1);
+    Sprite s7=Sprite("soldado",'v',1,2);
+    Sprite s8=Sprite("soldado",'v',1,3);
+    Sprite s9=Sprite("soldado",'v',2,0);
+    Sprite s10=Sprite("soldado",'v',2,1);
+    Sprite s11=Sprite("soldado",'x',2,2);
+    Sprite s12=Sprite("soldado",'x',2,3);
+    Sprite s13=Sprite("soldado",'x',3,0);
+    Sprite s14=Sprite("soldado",'x',3,1);
+    Sprite s15=Sprite("soldado",'x',3,2);
+    Sprite ene1=Sprite("Enemigo",'n',0,1);
+    Sprite ene2=Sprite("Enemigo",'n',1,0);
+    Sprite ene3=Sprite("Enemigo",'n',7,2);
+    Sprite ene4=Sprite("Enemigo",'n',7,1);
+    Sprite ene5=Sprite("Enemigo",'n',7,0);
+    Sprite ene6=Sprite("Enemigo",'n',7,1);
+    Sprite ene7=Sprite("Enemigo",'n',7,2);
+    Sprite ene8=Sprite("Enemigo",'n',7,1);
+    Sprite ene9=Sprite("Enemigo",'n',7,0);
+    Sprite ene10=Sprite("Enemigo",'n',7,1);
+    Sprite ene11=Sprite("Enemigo",'n',7,2);
+    Sprite ene12=Sprite("Enemigo",'n',7,1);
+    Sprite ene13=Sprite("Enemigo",'n',7,0);
+    Sprite ene14=Sprite("Enemigo",'n',7,1);
+    Sprite ene15=Sprite("Enemigo",'n',7,2);
+    Sprite ene16=Sprite("Enemigo",'n',7,1);
+    Sprite ene17=Sprite("Enemigo",'n',7,0);
+    Sprite ene18=Sprite("Enemigo",'n',7,1);
+    Sprite ene19=Sprite("Enemigo",'n',7,2);
+    Sprite ene20=Sprite("Enemigo",'n',7,1);
 public:
     mapa(){
         crearLista();
@@ -208,77 +225,93 @@ public:
 
         int contador=0;
         while(contador<12){
+
+
             if(Soldados.get_Data(0).posy!=0 &&listaY[(Soldados.get_Data(0).posy-1)].get_Nodo(Soldados.get_Data(0).posx)->data.nombre=="Enemigo"){
+                for(int j=0;j<20;j++){
+                    if(Enemigos.get_Data(j).posy==Soldados.get_Data(0).posy-1 && Enemigos.get_Data(j).posx==Soldados.get_Data(0).posx){
 
-                if(Enemigos.get_Data(0).posy==Soldados.get_Data(0).posy-1 && Enemigos.get_Data(0).posx==Soldados.get_Data(0).posx){
+                        int stamina=Enemigos.get_Nodo(j)->data.atacado(Soldados.get_Data(0).elemento);
+                        if(stamina==0){
+                            cout<<"ATACANDO ENEMIGO Arriba"<<endl;
+                            listaY[(Soldados.get_Data(0).posy-1)].get_Nodo(Soldados.get_Data(0).posx)->data=vacio;
+                            EnemigosNvl2[0]=Enemigos.get_Data(0);
 
-                    int stamina=Enemigos.get_Nodo(0)->data.atacado(Soldados.get_Data(0).elemento);
-                    if(stamina==0){
-                        cout<<"ATACANDO ENEMIGO Arriba"<<endl;
-                        listaY[(Soldados.get_Data(0).posy-1)].get_Nodo(Soldados.get_Data(0).posx)->data=vacio;
-                        EnemigosNvl2[0]=Enemigos.get_Data(0);
-                        cout<<EnemigosNvl2[0].elemento<<" stamina:"<<EnemigosNvl2[0].stamina<<endl;
-                        Enemigos.Delete_Pos(0);
-                    }else if(stamina!=0){
-                        cout<<"ATACANDO ENEMIGO Arriba"<<endl;
+                            Enemigos.Delete_Pos(j);
+                        }else if(stamina!=0){
+                            cout<<"ATACANDO ENEMIGO Arriba"<<endl;
 
-                        cout<<Enemigos.get_Data(0).stamina<<endl;
+                            cout<<Enemigos.get_Data(j).stamina<<endl;
+
+                        }break;
+
 
                     }
-
-
                 }
-
             }
             else if(Soldados.get_Data(0).posx!=14 && listaY[(Soldados.get_Data(0).posy)].get_Nodo(Soldados.get_Data(0).posx+1)->data.nombre=="Enemigo"){
-                if(Enemigos.get_Data(0).posy==Soldados.get_Data(0).posy && Enemigos.get_Data(0).posx==Soldados.get_Data(0).posx+1){
+                for(int j=0;j<20;j++){
+                    if(Enemigos.get_Data(j).posy==Soldados.get_Data(0).posy && Enemigos.get_Data(j).posx==Soldados.get_Data(0).posx+1){
 
-                    int stamina=Enemigos.get_Nodo(0)->data.atacado(Soldados.get_Data(0).elemento);
-                    if(stamina==0){
-                        cout<<"ATACANDO ENEMIGO Derecha"<<endl;
-                        listaY[(Soldados.get_Data(0).posy)].get_Nodo(Soldados.get_Data(0).posx+1)->data=vacio;
-                        EnemigosNvl2[0]=Enemigos.get_Data(0);
-                        Enemigos.Delete_Pos(0);
-                    }else if(stamina!=0){
-                        cout<<"ATACANDO ENEMIGO Derecha"<<endl;
+                        int stamina=Enemigos.get_Nodo(j)->data.atacado(Soldados.get_Data(0).elemento);
+                        if(stamina==0) {
+                            cout << "ATACANDO ENEMIGO Derecha" << endl;
+                            listaY[(Soldados.get_Data(0).posy)].get_Nodo(Soldados.get_Data(0).posx + 1)->data = vacio;
+                            EnemigosNvl2[0] = Enemigos.get_Data(0);
 
-                        cout<<Enemigos.get_Data(0).stamina<<endl;
+                            Enemigos.Delete_Pos(j);
+
+                        }else if(stamina!=0){
+                            cout<<"ATACANDO ENEMIGO Derecha"<<endl;
+
+                            cout<<Enemigos.get_Data(j).stamina<<endl;
+
+                        }break;
                     }
                 }
 
-            }else if(Soldados.get_Data(0).posy!=0 &&listaY[(Soldados.get_Data(0).posy+1)].get_Nodo(Soldados.get_Data(0).posx)->data.nombre=="Enemigo"){
-                if(Enemigos.get_Data(0).posy==Soldados.get_Data(0).posy+1 && Enemigos.get_Data(0).posx==Soldados.get_Data(0).posx){
 
-                    int stamina=Enemigos.get_Nodo(0)->data.atacado(Soldados.get_Data(0).elemento);
-                    if(stamina==0){
-                        cout<<"ATACANDO ENEMIGO Abajo"<<endl;
-                        listaY[(Soldados.get_Data(0).posy+1)].get_Nodo(Soldados.get_Data(0).posx)->data=vacio;
-                        EnemigosNvl2[0]=Enemigos.get_Data(0);
-                        Enemigos.Delete_Pos(0);
-                    }else if(stamina!=0){
-                        cout<<"ATACANDO ENEMIGO Abajo"<<endl;
 
-                        cout<<Enemigos.get_Data(0).stamina<<endl;
+            }else if(Soldados.get_Data(0).posy!=14 && listaY[(Soldados.get_Data(0).posy+1)].get_Nodo(Soldados.get_Data(0).posx)->data.nombre=="Enemigo"){
+
+                for(int j=0;j<20;j++){
+                    cout<<Enemigos.get_Data(j).posy<<Enemigos.get_Data(j).posx<<endl;
+
+                    if(Enemigos.get_Data(j).posy==Soldados.get_Data(0).posy+1 && Enemigos.get_Data(j).posx==Soldados.get_Data(0).posx){
+                        ;
+                        int stamina=Enemigos.get_Nodo(j)->data.atacado(Soldados.get_Data(0).elemento);
+                        if(stamina==0){
+                            cout<<"ATACANDO ENEMIGO Abajo"<<endl;
+                            listaY[(Soldados.get_Data(0).posy+1)].get_Nodo(Soldados.get_Data(0).posx)->data=vacio;
+                            EnemigosNvl2[0]=Enemigos.get_Data(0);
+                            Enemigos.Delete_Pos(j);
+                        }else if(stamina!=0){
+                            cout<<"ATACANDO ENEMIGO Abajo"<<endl;
+
+                            cout<<Enemigos.get_Data(j).stamina<<endl;
+                        }break;
                     }
                 }
+
 
 
             }else if(Soldados.get_Data(0).posy!=0 &&listaY[(Soldados.get_Data(0).posy)].get_Nodo(Soldados.get_Data(0).posx-1)->data.nombre=="Enemigo"){
-                if(Enemigos.get_Data(0).posy==Soldados.get_Data(0).posy && Enemigos.get_Data(0).posx==Soldados.get_Data(0).posx-1){
+                for(int j=0;j<20;j++){
+                    if(Enemigos.get_Data(j).posy==Soldados.get_Data(0).posy && Enemigos.get_Data(j).posx==Soldados.get_Data(0).posx-1){
 
-                    int stamina=Enemigos.get_Nodo(0)->data.atacado(Soldados.get_Data(0).elemento);
-                    if(stamina==0){
-                        cout<<"ATACANDO ENEMIGO Izquierda"<<endl;
-                        listaY[(Soldados.get_Data(0).posy)].get_Nodo(Soldados.get_Data(0).posx-1)->data=vacio;
-                        EnemigosNvl2[0]=Enemigos.get_Data(0);
-                        Enemigos.Delete_Pos(0);
-                    }else if(stamina!=0){
-                        cout<<"ATACANDO ENEMIGO Izquierda"<<endl;
+                        int stamina=Enemigos.get_Nodo(j)->data.atacado(Soldados.get_Data(0).elemento);
+                        if(stamina==0){
+                            cout<<"ATACANDO ENEMIGO Izquierda"<<endl;
+                            listaY[(Soldados.get_Data(0).posy)].get_Nodo(Soldados.get_Data(0).posx-1)->data=vacio;
+                            EnemigosNvl2[0]=Enemigos.get_Data(0);
+                            Enemigos.Delete_Pos(j);
+                        }else if(stamina!=0){
+                            cout<<"ATACANDO ENEMIGO Izquierda"<<endl;
 
-                        cout<<Enemigos.get_Data(0).stamina<<endl;
+                            cout<<Enemigos.get_Data(j).stamina<<endl;
+                        }break;
                     }
                 }
-
 
             }
             else{
@@ -286,8 +319,8 @@ public:
             }
             contador++;
         }
-    }
 
+    }
     //
 };
 
