@@ -12,9 +12,6 @@ void Show2(pr &d){
 
 int main(){
 
-char hola='Hola';
-cout<<hola<<endl;
-
 
 
 
@@ -22,14 +19,15 @@ cout<<hola<<endl;
 
     cout<<"-------------Matriz---------------"<<endl;
     mp.imprimir();
+    mp.contarArboles();
 
 
     mp.deteccionE();
     cout<<"-------------Matriz-Enemigo eliminado--------------"<<endl;
-    mp.imprimir();
 
+    mp.imprimir();
     cout<<"-------------Matriz-Enemigo eliminado--------------"<<endl;
-    mp.contarArboles();
+
 
 
     return 0;

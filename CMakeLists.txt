@@ -3,4 +3,4 @@ project(pruebas22)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(pruebas22 main.cpp mapa.cpp)
+add_executable(pruebas22 main.cpp mapa.cpp pelea.cpp)
