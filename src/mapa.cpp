@@ -1,9 +1,10 @@
 #ifndef PRUEBAS22_MAPA_H
 #define PRUEBAS22_MAPA_H
 #include <iostream>
+#include "pelea.cpp"
 #include "ListaSimple.h"
 #include "Sprite.cpp"
-#include "pelea.cpp"
+
 using namespace std;
 
 
@@ -15,6 +16,8 @@ void Show(pr &d){
 
 
 class mapa {
+public:
+    Lista<Sprite> *listaY=new Lista<Sprite>[15];
 private:
     int con=0;
     int con2=0;
@@ -33,7 +36,7 @@ private:
     Lista<Sprite> listaX13;
     Lista<Sprite> listaX14;
     Lista<Sprite> listaX15;
-    Lista<Sprite> *listaY=new Lista<Sprite>[15];
+
     Lista<Sprite> Soldados;
     Lista<Sprite> Enemigos;
 
@@ -283,6 +286,7 @@ public:
 
 
     }
+
 
     void deteccionE(){
 

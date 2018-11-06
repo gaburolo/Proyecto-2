@@ -1,34 +1,12 @@
+//
+// Created by Juan Pablo Martínez Brenes, Martin Calderón Blanco, Olman Castro Hernández on 9/5/18
+//
 #include <iostream>
-#include "ListaSimple.h"
+#include "src/Application.cpp"
 
-#include <list>
-#include "mapa.cpp"
-#include "Sprite.cpp"
-using namespace std;
-template <class pr>
-void Show2(pr &d){
-    std::cout<<d<<",";
-}
+//Main que inicia la aplicacion
+int main() {
 
-int main(){
-
-
-
-
-    mapa mp;
-
-    cout<<"-------------Matriz---------------"<<endl;
-    mp.imprimir();
-    mp.contarArboles();
-
-
-    mp.deteccionE();
-    cout<<"-------------Matriz-Enemigo eliminado--------------"<<endl;
-
-    mp.imprimir();
-    cout<<"-------------Matriz-Enemigo eliminado--------------"<<endl;
-
-
-
-    return 0;
+    auto *app = new Application();
+    return EXIT_SUCCESS;
 }
