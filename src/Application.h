@@ -1,7 +1,8 @@
 //
-// Created by Juan Pablo Martínez Brenes on 9/5/18.
+// Created by gaburolo on 07/11/18.
 //
 
-#ifndef TAREACORTA1_APPLICATION_H
-#define TAREACORTA1_APPLICATION_H
-#endif //TAREACORTA1_APPLICATION_H
+#ifndef PRUEBAS22_APPLICATION_H
+#define PRUEBAS22_APPLICATION_H
+
+#endif //PRUEBAS22_APPLICATION_H

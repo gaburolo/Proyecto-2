@@ -42,7 +42,7 @@ public:
     int atacado(char tipo){
         if(elemento=='n'){
             if (tipo == 'v'){
-                    elemento = tipo;
+
                     stamina = 100;
                     return 0;
 
@@ -50,13 +50,13 @@ public:
             }
             else if (tipo == 'x'){
 
-                    elemento = tipo;
+
                     stamina = 100;
                     return 0;
 
             }
             else{
-                    elemento = tipo;
+
                     stamina = 100;
                     return 0;
 
@@ -66,7 +66,7 @@ public:
             if (tipo == 'v'){
                 stamina = stamina-100;
                 if (stamina <= 0){
-                    elemento = tipo;
+
                     stamina = 100;
                     return 0;
                 }
@@ -78,7 +78,7 @@ public:
             else if (tipo == 'x'){
                 stamina = stamina -50;
                 if (stamina <= 0){
-                    elemento = tipo;
+
                     stamina = 100;
                     return 0;
                 }
@@ -90,8 +90,7 @@ public:
 
                 stamina = stamina -25;
                 if (stamina <= 0){
-                    std::cout<<"pos si"<<std::endl;
-                    elemento = tipo;
+
                     stamina = 100;
                     return 0;
                 }
@@ -103,7 +102,7 @@ public:
             if (tipo == 'd'){
                 stamina = stamina - 100;
                 if (stamina <= 0){
-                    elemento = tipo;
+
                     stamina = 100;
                     return 0;
                 }
@@ -114,7 +113,7 @@ public:
             else if (tipo == 'v'){
                 stamina = stamina - 50;
                 if (stamina <= 0){
-                    elemento = tipo;
+
                     stamina = 100;
                     return 0;
                 }
@@ -125,7 +124,7 @@ public:
             else{
                 stamina = stamina -25;
                 if (stamina <= 0){
-                    elemento = tipo;
+
                     stamina = 100;
                     return 0;
                 }
@@ -138,7 +137,7 @@ public:
             if (tipo == 'x'){
                 stamina = stamina - 100;
                 if (stamina <= 0){
-                    elemento = tipo;
+
                     stamina = 100;
                     return 0;
                 }
@@ -149,7 +148,7 @@ public:
             else if (tipo == 'd'){
                 stamina = stamina - 50;
                 if (stamina <= 0){
-                    elemento = tipo;
+
                     stamina = 100;
                     return 0;
                 }
@@ -160,7 +159,7 @@ public:
             else{
                 stamina = stamina -25;
                 if (stamina <= 0){
-                    elemento = tipo;
+
                     stamina = 100;
                     return 0;
                 }

@@ -1,17 +1,21 @@
 //
 // Created by Juan Pablo Martínez Brenes, Martin Calderón Blanco, Olman Castro Hernández on 9/5/18
 //
+
+
+
 #include "iostream"
 #include "Application.h"
 #include <SFML/Graphics.hpp>
 #include "mapa.cpp"
+
 class Application {
 private:
 
 
     mapa mp;
 
-
+    //Application* app=this;
     int i = 0;
     sf::RenderWindow window;
 
@@ -82,11 +86,11 @@ private:
 public:
     Application() {
 
-        mp.imprimir();
+        //mp.imprimir();
 
         //Creacion de la ventana
-        //window.create(sf::VideoMode(1024, 768), "DIGIMUNDO",sf::Style::Fullscreen);
-        window.create(sf::VideoMode(1024, 768), "DIGIMUNDO");
+        window.create(sf::VideoMode(1024, 768), "DIGIMUNDO",sf::Style::Fullscreen);
+        //window.create(sf::VideoMode(1024, 768), "DIGIMUNDO");
         window.setPosition(sf::Vector2<int>(0.0f,0.0f));
 
         //Carga de texturas para las pizzas, y se les da la posicion
@@ -157,8 +161,17 @@ public:
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
 
-                    mp.deteccionE();
-                    std::cout<<"PRESIONANDO X: "<<sf::Mouse::getPosition().x<<" Y: "<<sf::Mouse::getPosition().y<<std::endl;
+                    int num,num2;
+
+                    int x,y=0;
+                    num=sf::Mouse::getPosition().x;
+                    num2=sf::Mouse::getPosition().y;
+                    mp.obtenerXY(num, num2, x, y);
+                    std::cout<<mp.listaY[y].get_Data(x).nombre<<std::endl;
+                    moveDigi();
+
+                    //mp.deteccionE();
+                    //std::cout<<"PRESIONANDO X: "<<sf::Mouse::getPosition().x<<" Y: "<<sf::Mouse::getPosition().y<<std::endl;
 
 
                 }
@@ -170,7 +183,7 @@ public:
 
             loopApp();
 
-                sf::sleep(sf::milliseconds(30));
+                sf::sleep(sf::milliseconds(200));
         }
 
     }
@@ -188,8 +201,22 @@ public:
      */
 
     void moveDigi(){
+        int t=0;
+        int o=3;
+        while(o<14){
+            mp.listaY[t].get_Nodo(o)->data.posx+=1;
+            mp.listaY[0].get_Nodo(o+1)->data=mp.listaY[0].get_Nodo(o)->data;
+            mp.listaY[0].get_Nodo(o)->data=mp.vacio;
+            mp.actualizarXY();
+            sf::sleep(sf::milliseconds(200));
+            draw();
+            o++;
+        }
+
 
     }
+
+public:
     void draw() {
 
         window.clear();

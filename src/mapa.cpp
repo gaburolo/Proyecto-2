@@ -1,9 +1,14 @@
-#ifndef PRUEBAS22_MAPA_H
-#define PRUEBAS22_MAPA_H
+#ifndef PRUEBAS22_MAPA
+#define PRUEBAS22_MAPA
+
+
+
 #include <iostream>
 #include "pelea.cpp"
+
 #include "ListaSimple.h"
 #include "Sprite.cpp"
+//#include <SFML/Graphics.hpp>
 
 using namespace std;
 
@@ -17,8 +22,11 @@ void Show(pr &d){
 
 class mapa {
 public:
+    Sprite vacio=Sprite("vacio",'N',0,0);
     Lista<Sprite> *listaY=new Lista<Sprite>[15];
 private:
+
+
     int con=0;
     int con2=0;
     Lista<Sprite> listaX;
@@ -41,7 +49,7 @@ private:
     Lista<Sprite> Enemigos;
 
     Sprite *EnemigosNvl2=new Sprite[20];
-    Sprite vacio=Sprite("vacio",'N',0,0);
+
     Sprite obstaculo=Sprite("arbol",'N',0,0);
     Sprite s1=Sprite("soldado",'d',0,0);
     //CAmbiar aqui
@@ -55,14 +63,11 @@ private:
     Sprite s9=Sprite("soldado",'v',2,0);
     Sprite s10=Sprite("soldado",'v',2,1);
     Sprite s11=Sprite("soldado",'x',2,2);
-    Sprite s12=Sprite("soldado",'x',10,11);
-    Sprite s13=Sprite("soldado",'x',10,9);
-    Sprite s14=Sprite("soldado",'x',11,10);
-    Sprite s15=Sprite("soldado",'x',9,10);
-    /*Sprite s12=Sprite("soldado",'x',2,3);
+
+    Sprite s12=Sprite("soldado",'x',2,3);
     Sprite s13=Sprite("soldado",'x',3,0);
     Sprite s14=Sprite("soldado",'x',3,1);
-    Sprite s15=Sprite("soldado",'x',3,2);*/
+    Sprite s15=Sprite("soldado",'x',3,2);
     Sprite ene1=Sprite("Enemigo",'n',0,1);
     Sprite ene2=Sprite("Enemigo",'n',1,0);
     Sprite ene3=Sprite("Enemigo",'n',7,2);
@@ -172,13 +177,21 @@ private:
         Soldados.FinalInsert(s14);
         Soldados.FinalInsert(s15);
     }
+
+public:
     void actualizarXY(){
 
         for(int i=0;i<15;i++){
             for (int j = 0; j <15 ; ++j) {
                 listaY[i].get_Nodo(j)->X=j*50;
                 listaY[i].get_Nodo(j)->posY=i*50;
-
+                if(listaY[i].get_Nodo(j)->data.nombre=="vacio"){
+                    listaY[i].get_Nodo(j)->data.posx=j;
+                    listaY[i].get_Nodo(j)->data.posy=i;
+                }else if(listaY[i].get_Nodo(j)->data.nombre=="arbol"){
+                    listaY[i].get_Nodo(j)->data.posx=j;
+                    listaY[i].get_Nodo(j)->data.posy=i;
+                }
             }
         }
     }
@@ -208,7 +221,7 @@ private:
         while(con2<19){
             int z=rand()%15;
             int z2=rand()%15;
-            cout<<z<<" : "<<z2<<endl;
+
             if((z!=0 && z2!=0) &&(z!=14 && z2!=14) ){
                 if(listaY[z].get_Data(z2).nombre=="vacio"){
                     Enemigos.get_Nodo(con2)->data.posx=z;
@@ -226,6 +239,7 @@ private:
 
     }
 public:
+
     void imprimir(){
 
         for(int k=0;k<15;k++) {
@@ -262,7 +276,45 @@ public:
         }cout<<"}";
     }
 
-    void contarArboles(){
+    void mover(){
+
+        listaY[3].get_Nodo(0)->data.posx+=1;
+        listaY[4].get_Nodo(1)->data=listaY[3].get_Nodo(0)->data;
+        listaY[3].get_Nodo(0)->data=vacio;
+
+    }
+    void obtenerXY(int X, int Y, int& p, int& q){
+        for(int py=0;py<15;py++){
+            for(int px=0;px<15;px++){
+
+                if(px!=14 && py!=14 && (listaY[py].get_Nodo(px)->posY<= Y)&&(Y<=listaY[py+1].get_Nodo(px)->posY)&&(listaY[py].get_Nodo(px)->X<= X)&&(X <=listaY[py].get_Nodo(px+1)->X)){
+                    cout<<"tu posicion es X: "<<listaY[py].get_Nodo(px)->data.posx<<" Y: "<<listaY[py].get_Nodo(px)->data.posy<<endl;
+
+                    p=listaY[py].get_Nodo(px)->data.posx;
+                    q=listaY[py].get_Nodo(px)->data.posy;
+                    break;
+
+
+                }else if(px==14 && (listaY[py].get_Nodo(px)->posY<= Y) && (Y <=listaY[py+1].get_Nodo(px)->posY) && (listaY[py].get_Nodo(px)->X<= X)){
+                    cout<<"tu posicion es X: "<<listaY[py].get_Nodo(px)->data.posx<<" Y: "<<listaY[py].get_Nodo(px)->data.posy<<endl;
+
+                    p=listaY[py].get_Nodo(px)->data.posx;
+                    q=listaY[py].get_Nodo(px)->data.posy;
+                    break;
+
+                }else if(py==14 && (listaY[py].get_Nodo(px)->posY<= Y)  && (listaY[py].get_Nodo(px)->X<= X)&&(X <=listaY[py].get_Nodo(px+1)->X)){
+                    cout<<"tu posicion es X: "<<listaY[py].get_Nodo(px)->data.posx<<" Y: "<<listaY[py].get_Nodo(px)->data.posy<<endl;
+                    p=listaY[py].get_Nodo(px)->data.posx;
+                    q=listaY[py].get_Nodo(px)->data.posy;
+                    break;
+
+                }
+            }
+        }
+    }
+
+
+        void contarArboles(){
         int csddsa=0;
         for(int k=0;k<15;k++) {
             for(int t=0;t<15;t++){
@@ -302,6 +354,7 @@ public:
                         pelea p=pelea(Enemigos.get_Nodo(contador)->data,Soldados.get_Nodo(j)->data);
                         listaY[Soldados.get_Nodo(j)->data.posy].get_Nodo(Soldados.get_Nodo(j)->data.posx)->data=vacio;
                         Soldados.get_Nodo(j)->data=vacio;
+                        actualizarXY();
                     }
                 }
             }
@@ -311,6 +364,7 @@ public:
                         cout<<"ATACANDO ENEMIGO Derecha"<<endl;
                         listaY[Soldados.get_Nodo(j)->data.posy].get_Nodo(Soldados.get_Nodo(j)->data.posx)->data=vacio;
                         Soldados.get_Nodo(j)->data=vacio;
+                        actualizarXY();
                     }
                 }
 
@@ -323,6 +377,7 @@ public:
                         cout<<"ATACANDO ENEMIGO Abajo"<<endl;
                         listaY[Soldados.get_Nodo(j)->data.posy].get_Nodo(Soldados.get_Nodo(j)->data.posx)->data=vacio;
                         Soldados.get_Nodo(j)->data=vacio;
+                        actualizarXY();
                     }
 
                 }
@@ -334,6 +389,7 @@ public:
                         listaY[Soldados.get_Nodo(j)->data.posy].get_Nodo(Soldados.get_Nodo(j)->data.posx)->data=vacio;
                         Soldados.get_Nodo(j)->data=vacio;
                         Soldados.get_Nodo(j)->data=vacio;
+                        actualizarXY();
                     }
 
                 }
