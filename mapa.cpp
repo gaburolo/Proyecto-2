@@ -5,32 +5,25 @@
 
 #include <iostream>
 
-#include "AtackWindow.h"
-#include "FightMenu.h"
+#include "AtackWindow.cpp"
+
 #include "ListaSimple.h"
 #include "Sprite.cpp"
 
 #include <SFML/Graphics.hpp>
 
-
-
-
-
-template <class pr>
-void Show(pr &d){
-    std::cout<<d<<",";
-}
-
-
 class mapa {
 public:
-    Sprite vacio=Sprite("vacio",'N',0,0);
-    Lista<Sprite> *listaY=new Lista<Sprite>[15];
+    Sprite vacio = Sprite("vacio", 'N', 0, 0);
+    Lista<Sprite> *listaY = new Lista<Sprite>[15];
+    Lista<Sprite> Soldados;
+    int nivel=1;
+    int nSol=0;
 private:
-    //AtackWindow atackWindow;
+    AtackWindow atackWindow;
 
-    int con=0;
-    int con2=0;
+    int con = 0;
+
     Lista<Sprite> listaX;
     Lista<Sprite> listaX2;
     Lista<Sprite> listaX3;
@@ -47,29 +40,38 @@ private:
     Lista<Sprite> listaX14;
     Lista<Sprite> listaX15;
 
-    Lista<Sprite> Soldados;
-    Lista<Sprite> Enemigos;
 
-    Sprite *EnemigosNvl2=new Sprite[20];
+    Lista<Sprite> Enemigos;
+    Lista<Sprite> Enemigos2;
+    Lista<Sprite> Enemigos3;
+    Lista<Sprite> Enemigos4;
+    Lista<Sprite> Enemigos5;
+    Lista<Sprite> Enemigos6;
+
+    Lista<Sprite> *EnemigosT = new Lista<Sprite>[6];
+
 
     Sprite obstaculo=Sprite("arbol",'N',0,0);
-    Sprite s1=Sprite("soldado",'d',0,0);
-    //CAmbiar aqui
-    Sprite s2=Sprite("soldado",'d',0,1);
-    Sprite s3=Sprite("soldado",'d',0,2);
-    Sprite s4=Sprite("soldado",'d',0,3);
-    Sprite s5=Sprite("soldado",'d',1,0);
-    Sprite s6=Sprite("soldado",'v',1,1);
-    Sprite s7=Sprite("soldado",'v',1,2);
-    Sprite s8=Sprite("soldado",'v',1,3);
-    Sprite s9=Sprite("soldado",'v',2,0);
-    Sprite s10=Sprite("soldado",'v',2,1);
-    Sprite s11=Sprite("soldado",'x',2,2);
 
-    Sprite s12=Sprite("soldado",'x',2,3);
-    Sprite s13=Sprite("soldado",'x',3,0);
-    Sprite s14=Sprite("soldado",'x',3,1);
-    Sprite s15=Sprite("soldado",'x',3,2);
+
+    //CAmbiar aqui
+    Sprite s1=Sprite("soldado",'d',2,3);
+    Sprite s2=Sprite("soldado",'d',1,3);
+    Sprite s3=Sprite("soldado",'d',0,3);
+    Sprite s4=Sprite("soldado",'d',3,2);
+    Sprite s5=Sprite("soldado",'v',2,2);
+    Sprite s6=Sprite("soldado",'v',1,2);
+    Sprite s7=Sprite("soldado",'v',0,2);
+    Sprite s8=Sprite("soldado",'v',3,1);
+    Sprite s9=Sprite("soldado",'v',2,1);
+    Sprite s10=Sprite("soldado",'x',1,1);
+
+    Sprite s11=Sprite("soldado",'x',0,1);
+    Sprite s12=Sprite("soldado",'x',3,0);
+    Sprite s13=Sprite("soldado",'x',2,0);
+    Sprite s14=Sprite("soldado",'x',1,0);
+    Sprite s15=Sprite("soldado",'d',0,0);
+
     Sprite ene1=Sprite("Enemigo",'n',0,1);
     Sprite ene2=Sprite("Enemigo",'n',1,0);
     Sprite ene3=Sprite("Enemigo",'n',7,2);
@@ -104,23 +106,23 @@ public:
 
     void reinicio(){
 
-        s1=Sprite("soldado",'d',0,0);
-        //CAmbiar aqui
-        s2=Sprite("soldado",'d',0,1);
-        s3=Sprite("soldado",'d',0,2);
-        s4=Sprite("soldado",'d',0,3);
-        s5=Sprite("soldado",'d',1,0);
-        s6=Sprite("soldado",'v',1,1);
-        s7=Sprite("soldado",'v',1,2);
-        s8=Sprite("soldado",'v',1,3);
-        s9=Sprite("soldado",'v',2,0);
-        s10=Sprite("soldado",'v',2,1);
-        s11=Sprite("soldado",'x',2,2);
+        s1=Sprite("soldado",'d',2,3);
+        s2=Sprite("soldado",'d',1,3);
+        s3=Sprite("soldado",'d',0,3);
+        s4=Sprite("soldado",'d',3,2);
+        s5=Sprite("soldado",'v',2,2);
+        s6=Sprite("soldado",'v',1,2);
+        s7=Sprite("soldado",'v',0,2);
+        s8=Sprite("soldado",'v',3,1);
+        s9=Sprite("soldado",'v',2,1);
+        s10=Sprite("soldado",'x',1,1);
 
-        s12=Sprite("soldado",'x',2,3);
-        s13=Sprite("soldado",'x',3,0);
-        s14=Sprite("soldado",'x',3,1);
-        s15=Sprite("soldado",'x',3,2);
+        s11=Sprite("soldado",'x',0,1);
+        s12=Sprite("soldado",'x',3,0);
+        s13=Sprite("soldado",'x',2,0);
+        s14=Sprite("soldado",'x',1,0);
+        s15=Sprite("soldado",'d',0,0);
+
         Soldados.ChangeDataPos(s1,0);
         Soldados.ChangeDataPos(s2,1);
         Soldados.ChangeDataPos(s3,2);
@@ -141,6 +143,7 @@ public:
 
 
         agregarSprites();
+        agregarSpritesE();
         //agregarSpritesE();
         //colocarObstaculos();
         actualizarXY();
@@ -148,26 +151,36 @@ public:
 
 private:
     void insertarEnemigos(){
-        Enemigos.FinalInsert(ene1);
-        Enemigos.FinalInsert(ene2);
-        Enemigos.FinalInsert(ene3);
-        Enemigos.FinalInsert(ene4);
-        Enemigos.FinalInsert(ene5);
-        Enemigos.FinalInsert(ene6);
-        Enemigos.FinalInsert(ene7);
-        Enemigos.FinalInsert(ene8);
-        Enemigos.FinalInsert(ene9);
-        Enemigos.FinalInsert(ene10);
-        Enemigos.FinalInsert(ene11);
-        Enemigos.FinalInsert(ene12);
-        Enemigos.FinalInsert(ene13);
-        Enemigos.FinalInsert(ene14);
-        Enemigos.FinalInsert(ene15);
-        Enemigos.FinalInsert(ene16);
-        Enemigos.FinalInsert(ene17);
-        Enemigos.FinalInsert(ene18);
-        Enemigos.FinalInsert(ene19);
-        Enemigos.FinalInsert(ene20);
+        EnemigosT[0]=Enemigos;
+        EnemigosT[1]=Enemigos2;
+        EnemigosT[2]=Enemigos3;
+        EnemigosT[3]=Enemigos4;
+        EnemigosT[4]=Enemigos5;
+        EnemigosT[5]=Enemigos6;
+
+        for(int c=0;c<6;c++){
+            EnemigosT[c].FinalInsert(ene1);
+            EnemigosT[c].FinalInsert(ene2);
+            EnemigosT[c].FinalInsert(ene3);
+            EnemigosT[c].FinalInsert(ene4);
+            EnemigosT[c].FinalInsert(ene5);
+            EnemigosT[c].FinalInsert(ene6);
+            EnemigosT[c].FinalInsert(ene7);
+            EnemigosT[c].FinalInsert(ene8);
+            EnemigosT[c].FinalInsert(ene9);
+            EnemigosT[c].FinalInsert(ene10);
+            EnemigosT[c].FinalInsert(ene11);
+            EnemigosT[c].FinalInsert(ene12);
+            EnemigosT[c].FinalInsert(ene13);
+            EnemigosT[c].FinalInsert(ene14);
+            EnemigosT[c].FinalInsert(ene15);
+            EnemigosT[c].FinalInsert(ene16);
+            EnemigosT[c].FinalInsert(ene17);
+            EnemigosT[c].FinalInsert(ene18);
+            EnemigosT[c].FinalInsert(ene19);
+            EnemigosT[c].FinalInsert(ene20);
+
+        }
 
     }
     void crearLista(){
@@ -273,24 +286,30 @@ public:
 
     }
     void agregarSpritesE(){
+        int con2=0;
+        for(int i1=0;i1<15;i1++){
+            for(int i2=0;i2<15;i2++){
+                if(listaY[i1].get_Nodo(i2)->data.nombre=="Enemigo"){
+                    listaY[i1].get_Nodo(i2)->data=vacio;
+                }
+            }
+        }
         while(con2<19){
             int z=rand()%15;
             int z2=rand()%15;
 
             if((z!=0 && z2!=0) &&(z!=14 && z2!=14) ){
                 if(listaY[z].get_Data(z2).nombre=="vacio"){
-                    Enemigos.get_Nodo(con2)->data.posx=z;
-                    Enemigos.get_Nodo(con2)->data.posy=z2;
-                    listaY[z2].get_Nodo(z)->data=Enemigos.get_Data(con2);
+                    EnemigosT[nivel].get_Nodo(con2)->data.posx=z;
+                    EnemigosT[nivel].get_Nodo(con2)->data.posy=z2;
+                    listaY[z2].get_Nodo(z)->data=EnemigosT[nivel].get_Data(con2);
                     //listaY[z2].ChangeDataPos(),z);
 
                     con2++;
                 }
             }
         }
-        Enemigos.get_Nodo(con2)->data.posx=10;
-        Enemigos.get_Nodo(con2)->data.posy=10;
-        listaY[10].get_Nodo(10)->data=Enemigos.get_Data(10);
+
 
     }
 public:
@@ -409,52 +428,142 @@ public:
 
         int contador=0;
         while(contador<20){
-            if(Enemigos.get_Data(contador).posy!=0 &&listaY[(Enemigos.get_Data(contador).posy-1)].get_Nodo(Enemigos.get_Data(contador).posx)->data.nombre=="soldado"){
+            if(EnemigosT[nivel].get_Data(contador).posy!=0 &&EnemigosT[nivel].get_Data(contador).nombre=="Enemigo" &&listaY[(EnemigosT[nivel].get_Data(contador).posy-1)].get_Nodo(EnemigosT[nivel].get_Data(contador).posx)->data.nombre=="soldado"){
                 for(int j=0;j<15;j++){
-                    if(Soldados.get_Data(j).posy==Enemigos.get_Data(contador).posy-1 && Soldados.get_Data(j).posx==Enemigos.get_Data(contador).posx){
+                    if(Soldados.get_Data(j).posy==EnemigosT[nivel].get_Data(contador).posy-1 && Soldados.get_Data(j).posx==EnemigosT[nivel].get_Data(contador).posx){
                         std::cout<<"ATACANDO ENEMIGO Arriba"<<std::endl;
                         int value;
 
-                        //value = atackWindow.drawAtackWindow(Soldados.get_Nodo(j)->data,Enemigos.get_Nodo(contador)->data,1);
+                        value = atackWindow.drawAtackWindow(Soldados.get_Nodo(j)->data,EnemigosT[nivel].get_Nodo(contador)->data,nivel);
 
-                        listaY[Soldados.get_Nodo(j)->data.posy].get_Nodo(Soldados.get_Nodo(j)->data.posx)->data=vacio;
-                        Soldados.get_Nodo(j)->data=vacio;
-                        actualizarXY();
+                        EnemigosT[nivel].get_Nodo(contador)->data.digievolucion(Soldados.get_Nodo(j)->data.elemento);
+                        if(value==1){
+                            EnemigosT[nivel+1].get_Nodo(contador)->data=EnemigosT[nivel].get_Nodo(contador)->data;
+                            std::cout<<"EVOLUCIONO A : "<<EnemigosT[nivel].get_Nodo(contador)->data.elemento<<std::endl;
+                            listaY[EnemigosT[nivel].get_Nodo(contador)->data.posy].get_Nodo(EnemigosT[nivel].get_Nodo(contador)->data.posx)->data=vacio;
+                            EnemigosT[nivel].get_Nodo(contador)->data=vacio;
+                            std::cout<<"EVOLUCIONO A : "<<EnemigosT[nivel+1].get_Nodo(contador)->data.elemento<<std::endl;
+
+                        }else if(value==2){
+                            vacio.posx=Soldados.get_Nodo(j)->data.posx;
+                            vacio.posy=Soldados.get_Nodo(j)->data.posy;
+                            Soldados.get_Nodo(j)->data=vacio;
+                            agregarSprites();
+                        }else if(value==3){
+                            EnemigosT[nivel+1].get_Nodo(contador)->data=EnemigosT[nivel].get_Nodo(contador)->data;
+                            listaY[EnemigosT[nivel].get_Nodo(contador)->data.posy].get_Nodo(EnemigosT[nivel].get_Nodo(contador)->data.posx)->data=vacio;
+                            EnemigosT[nivel].get_Nodo(contador)->data=vacio;
+                            std::cout<<EnemigosT[nivel+1].get_Nodo(contador)->data.elemento<<std::endl;
+                            vacio.posx=Soldados.get_Nodo(j)->data.posx;
+                            vacio.posy=Soldados.get_Nodo(j)->data.posy;
+                            Soldados.get_Nodo(j)->data=vacio;
+                            agregarSprites();
+                        }
+
                     }
                 }
             }
-            else if(Enemigos.get_Data(contador).posx!=14 && listaY[(Enemigos.get_Data(contador).posy)].get_Nodo(Enemigos.get_Data(contador).posx+1)->data.nombre=="soldado"){
+            else if(EnemigosT[nivel].get_Data(contador).posx!=14  &&EnemigosT[nivel].get_Data(contador).nombre=="Enemigo"&& listaY[(EnemigosT[nivel].get_Data(contador).posy)].get_Nodo(EnemigosT[nivel].get_Data(contador).posx+1)->data.nombre=="soldado"){
                 for(int j=0;j<15;j++){
-                    if(Soldados.get_Data(j).posy==Enemigos.get_Data(contador).posy && Soldados.get_Data(j).posx==Enemigos.get_Data(contador).posx+1){
+                    if(Soldados.get_Data(j).posy==EnemigosT[nivel].get_Data(contador).posy && Soldados.get_Data(j).posx==EnemigosT[nivel].get_Data(contador).posx+1){
                         std::cout<<"ATACANDO ENEMIGO Derecha"<<std::endl;
-                        listaY[Soldados.get_Nodo(j)->data.posy].get_Nodo(Soldados.get_Nodo(j)->data.posx)->data=vacio;
-                        Soldados.get_Nodo(j)->data=vacio;
-                        actualizarXY();
+                        int value;
+
+                        value = atackWindow.drawAtackWindow(Soldados.get_Nodo(j)->data,EnemigosT[nivel].get_Nodo(contador)->data,nivel);
+                        std::cout<<"el valor retornado"<<value<<std::endl;
+                        EnemigosT[nivel].get_Nodo(contador)->data.digievolucion(Soldados.get_Nodo(j)->data.elemento);
+                        if(value==1){
+                            EnemigosT[nivel+1].get_Nodo(contador)->data=EnemigosT[nivel].get_Nodo(contador)->data;
+                            listaY[EnemigosT[nivel].get_Nodo(contador)->data.posy].get_Nodo(EnemigosT[nivel].get_Nodo(contador)->data.posx)->data=vacio;
+                            EnemigosT[nivel].get_Nodo(contador)->data=vacio;
+                            std::cout<<EnemigosT[nivel+1].get_Nodo(contador)->data.elemento<<std::endl;
+
+                        }else if(value==2){
+
+                            vacio.posx=Soldados.get_Nodo(j)->data.posx;
+                            vacio.posy=Soldados.get_Nodo(j)->data.posy;
+                            Soldados.get_Nodo(j)->data=vacio;
+                            agregarSprites();
+                        }else if(value==3){
+                            EnemigosT[nivel+1].get_Nodo(contador)->data=EnemigosT[nivel].get_Nodo(contador)->data;
+                            listaY[EnemigosT[nivel].get_Nodo(contador)->data.posy].get_Nodo(EnemigosT[nivel].get_Nodo(contador)->data.posx)->data=vacio;
+                            EnemigosT[nivel].get_Nodo(contador)->data=vacio;
+                            std::cout<<EnemigosT[nivel+1].get_Nodo(contador)->data.elemento<<std::endl;
+                            vacio.posx=Soldados.get_Nodo(j)->data.posx;
+                            vacio.posy=Soldados.get_Nodo(j)->data.posy;
+                            Soldados.get_Nodo(j)->data=vacio;
+                            agregarSprites();
+                        }
                     }
                 }
 
 
 
-            }else if(Enemigos.get_Data(contador).posy!=14 && listaY[(Enemigos.get_Data(contador).posy+1)].get_Nodo(Enemigos.get_Data(contador).posx)->data.nombre=="soldado"){
+            }else if(EnemigosT[nivel].get_Data(contador).posy!=14  &&EnemigosT[nivel].get_Data(contador).nombre=="Enemigo"&& listaY[(EnemigosT[nivel].get_Data(contador).posy+1)].get_Nodo(EnemigosT[nivel].get_Data(contador).posx)->data.nombre=="soldado"){
 
                 for(int j=0;j<15;j++){
-                    if(Soldados.get_Data(j).posy==Enemigos.get_Data(contador).posy+1 && Soldados.get_Data(j).posx==Enemigos.get_Data(contador).posx){
+                    if(Soldados.get_Data(j).posy==EnemigosT[nivel].get_Data(contador).posy+1 && Soldados.get_Data(j).posx==EnemigosT[nivel].get_Data(contador).posx){
                         std::cout<<"ATACANDO ENEMIGO Abajo"<<std::endl;
-                        listaY[Soldados.get_Nodo(j)->data.posy].get_Nodo(Soldados.get_Nodo(j)->data.posx)->data=vacio;
-                        Soldados.get_Nodo(j)->data=vacio;
-                        actualizarXY();
+                        int value;
+
+                        value = atackWindow.drawAtackWindow(Soldados.get_Nodo(j)->data,EnemigosT[nivel].get_Nodo(contador)->data,nivel);
+                        std::cout<<"el valor retornado"<<value<<std::endl;
+                        EnemigosT[nivel].get_Nodo(contador)->data.digievolucion(Soldados.get_Nodo(j)->data.elemento);
+                        if(value==1){
+                            EnemigosT[nivel+1].get_Nodo(contador)->data=EnemigosT[nivel].get_Nodo(contador)->data;
+                            listaY[EnemigosT[nivel].get_Nodo(contador)->data.posy].get_Nodo(EnemigosT[nivel].get_Nodo(contador)->data.posx)->data=vacio;
+                            EnemigosT[nivel].get_Nodo(contador)->data=vacio;
+                            std::cout<<EnemigosT[nivel+1].get_Nodo(contador)->data.elemento<<std::endl;
+
+                        }else if(value==2){
+                            vacio.posx=Soldados.get_Nodo(j)->data.posx;
+                            vacio.posy=Soldados.get_Nodo(j)->data.posy;
+                            Soldados.get_Nodo(j)->data=vacio;
+                            agregarSprites();
+                        }else if(value==3){
+                            EnemigosT[nivel+1].get_Nodo(contador)->data=EnemigosT[nivel].get_Nodo(contador)->data;
+                            listaY[EnemigosT[nivel].get_Nodo(contador)->data.posy].get_Nodo(EnemigosT[nivel].get_Nodo(contador)->data.posx)->data=vacio;
+                            EnemigosT[nivel].get_Nodo(contador)->data=vacio;
+                            std::cout<<EnemigosT[nivel+1].get_Nodo(contador)->data.elemento<<std::endl;
+                            vacio.posx=Soldados.get_Nodo(j)->data.posx;
+                            vacio.posy=Soldados.get_Nodo(j)->data.posy;
+                            Soldados.get_Nodo(j)->data=vacio;
+                            agregarSprites();
+                        }
                     }
 
                 }
             }
-            else if(Enemigos.get_Data(contador).posy!=0 &&listaY[(Enemigos.get_Data(contador).posy)].get_Nodo(Enemigos.get_Data(contador).posx-1)->data.nombre=="soldado"){
+            else if(EnemigosT[nivel].get_Data(contador).posy!=0 &&EnemigosT[nivel].get_Data(contador).nombre=="Enemigo" &&listaY[(EnemigosT[nivel].get_Data(contador).posy)].get_Nodo(EnemigosT[nivel].get_Data(contador).posx-1)->data.nombre=="soldado"){
                 for(int j=0;j<15;j++){
-                    if(Soldados.get_Data(j).posy==Enemigos.get_Data(contador).posy && Soldados.get_Data(j).posx==Enemigos.get_Data(contador).posx-1){
+                    if(Soldados.get_Data(j).posy==EnemigosT[nivel].get_Data(contador).posy && Soldados.get_Data(j).posx==EnemigosT[nivel].get_Data(contador).posx-1){
                         std::cout<<"ATACANDO ENEMIGO IZQ"<<std::endl;
-                        listaY[Soldados.get_Nodo(j)->data.posy].get_Nodo(Soldados.get_Nodo(j)->data.posx)->data=vacio;
-                        Soldados.get_Nodo(j)->data=vacio;
-                        Soldados.get_Nodo(j)->data=vacio;
-                        actualizarXY();
+                        int value;
+
+                        value = atackWindow.drawAtackWindow(Soldados.get_Nodo(j)->data,EnemigosT[nivel].get_Nodo(contador)->data,nivel);
+                        std::cout<<"el valor retornado"<<value<<std::endl;
+                        EnemigosT[nivel].get_Nodo(contador)->data.digievolucion(Soldados.get_Nodo(j)->data.elemento);
+                        if(value==1){
+                            EnemigosT[nivel+1].get_Nodo(contador)->data=EnemigosT[nivel].get_Nodo(contador)->data;
+                            listaY[EnemigosT[nivel].get_Nodo(contador)->data.posy].get_Nodo(EnemigosT[nivel].get_Nodo(contador)->data.posx)->data=vacio;
+                            EnemigosT[nivel].get_Nodo(contador)->data=vacio;
+                            std::cout<<EnemigosT[nivel+1].get_Nodo(contador)->data.elemento<<std::endl;
+
+                        }else if(value==2){
+                            vacio.posx=Soldados.get_Nodo(j)->data.posx;
+                            vacio.posy=Soldados.get_Nodo(j)->data.posy;
+                            Soldados.get_Nodo(j)->data=vacio;
+                            agregarSprites();
+                        }else if(value==3){
+                            EnemigosT[nivel+1].get_Nodo(contador)->data=EnemigosT[nivel].get_Nodo(contador)->data;
+                            listaY[EnemigosT[nivel].get_Nodo(contador)->data.posy].get_Nodo(EnemigosT[nivel].get_Nodo(contador)->data.posx)->data=vacio;
+                            EnemigosT[nivel].get_Nodo(contador)->data=vacio;
+                            std::cout<<EnemigosT[nivel+1].get_Nodo(contador)->data.elemento<<std::endl;
+                            vacio.posx=Soldados.get_Nodo(j)->data.posx;
+                            vacio.posy=Soldados.get_Nodo(j)->data.posy;
+                            Soldados.get_Nodo(j)->data=vacio;
+                            agregarSprites();
+                        }
                     }
 
                 }
@@ -467,125 +576,26 @@ public:
 
 
 
-        /*
 
-
-            if(Soldados.get_Data(0).posy!=0 &&listaY[(Soldados.get_Data(0).posy-1)].get_Nodo(Soldados.get_Data(0).posx)->data.nombre=="Enemigo"){
-                for(int j=0;j<20;j++){
-                    if(Enemigos.get_Data(j).posy==Soldados.get_Data(0).posy-1 && Enemigos.get_Data(j).posx==Soldados.get_Data(0).posx){
-
-                        int stamina=Enemigos.get_Nodo(j)->data.atacado(Soldados.get_Data(0).elemento);
-                        if(stamina==0){
-                            cout<<"ATACANDO ENEMIGO Arriba"<<endl;
-                            listaY[(Soldados.get_Data(0).posy-1)].get_Nodo(Soldados.get_Data(0).posx)->data=vacio;
-                            EnemigosNvl2[0]=Enemigos.get_Data(0);
-
-                            Enemigos.Delete_Pos(j);
-                        }else if(stamina!=0){
-                            cout<<"ATACANDO ENEMIGO Arriba"<<endl;
-
-                            cout<<Enemigos.get_Data(j).stamina<<endl;
-
-                        }break;
-
-
-                    }
-                }
-            }
-            else if(Soldados.get_Data(0).posx!=14 && listaY[(Soldados.get_Data(0).posy)].get_Nodo(Soldados.get_Data(0).posx+1)->data.nombre=="Enemigo"){
-                for(int j=0;j<20;j++){
-                    if(Enemigos.get_Data(j).posy==Soldados.get_Data(0).posy && Enemigos.get_Data(j).posx==Soldados.get_Data(0).posx+1){
-
-                        int stamina=Enemigos.get_Nodo(j)->data.atacado(Soldados.get_Data(0).elemento);
-                        if(stamina==0) {
-                            cout << "ATACANDO ENEMIGO Derecha" << endl;
-                            listaY[(Soldados.get_Data(0).posy)].get_Nodo(Soldados.get_Data(0).posx + 1)->data = vacio;
-                            EnemigosNvl2[0] = Enemigos.get_Data(0);
-
-                            Enemigos.Delete_Pos(j);
-
-                        }else if(stamina!=0){
-                            cout<<"ATACANDO ENEMIGO Derecha"<<endl;
-
-                            cout<<Enemigos.get_Data(j).stamina<<endl;
-
-                        }break;
-                    }
-                }
-
-
-
-            }else if(Soldados.get_Data(0).posy!=14 && listaY[(Soldados.get_Data(0).posy+1)].get_Nodo(Soldados.get_Data(0).posx)->data.nombre=="Enemigo"){
-
-                for(int j=0;j<20;j++){
-                    cout<<Enemigos.get_Data(j).posy<<Enemigos.get_Data(j).posx<<endl;
-
-                    if(Enemigos.get_Data(j).posy==Soldados.get_Data(0).posy+1 && Enemigos.get_Data(j).posx==Soldados.get_Data(0).posx){
-                        ;
-                        int stamina=Enemigos.get_Nodo(j)->data.atacado(Soldados.get_Data(0).elemento);
-                        if(stamina==0){
-                            cout<<"ATACANDO ENEMIGO Abajo"<<endl;
-                            listaY[(Soldados.get_Data(0).posy+1)].get_Nodo(Soldados.get_Data(0).posx)->data=vacio;
-                            EnemigosNvl2[0]=Enemigos.get_Data(0);
-                            Enemigos.Delete_Pos(j);
-                        }else if(stamina!=0){
-                            cout<<"ATACANDO ENEMIGO Abajo"<<endl;
-
-                            cout<<Enemigos.get_Data(j).stamina<<endl;
-                        }break;
-                    }
-                }
-
-
-
-            }else if(Soldados.get_Data(0).posy!=0 &&listaY[(Soldados.get_Data(0).posy)].get_Nodo(Soldados.get_Data(0).posx-1)->data.nombre=="Enemigo"){
-                for(int j=0;j<20;j++){
-                    if(Enemigos.get_Data(j).posy==Soldados.get_Data(0).posy && Enemigos.get_Data(j).posx==Soldados.get_Data(0).posx-1){
-
-                        int stamina=Enemigos.get_Nodo(j)->data.atacado(Soldados.get_Data(0).elemento);
-                        if(stamina==0){
-                            cout<<"ATACANDO ENEMIGO Izquierda"<<endl;
-                            listaY[(Soldados.get_Data(0).posy)].get_Nodo(Soldados.get_Data(0).posx-1)->data=vacio;
-                            EnemigosNvl2[0]=Enemigos.get_Data(0);
-                            Enemigos.Delete_Pos(j);
-                        }else if(stamina!=0){
-                            cout<<"ATACANDO ENEMIGO Izquierda"<<endl;
-
-                            cout<<Enemigos.get_Data(j).stamina<<endl;
-                        }break;
-                    }
-                }
-
-            }
-            else{
-                cout<<"No hay enemigo"<<endl;
-            }
-            contador++;*/
         }
 
     }	mapa& mover(int posx, int posy) {
         deteccionE();
-        Soldados.get_Nodo(12)->data.visitados[0]=00;
-        if(Soldados.get_Data(12).posx==14 && Soldados.get_Data(12).posy==14){
+        Soldados.get_Nodo(nSol)->data.visitados[0]=00;
+        if(Soldados.get_Data(nSol).posx==14 && Soldados.get_Data(nSol).posy==14){
 
             vacio.posx=Soldados.get_Nodo(3)->data.posx;
             vacio.posy=Soldados.get_Nodo(3)->data.posy;
             Soldados.get_Nodo(3)->data=vacio;
 
             reinicio();
-
-            //Soldados.Delete_Pos(3);
-            //Soldados.Delete_Pos(3);
-            //Soldados.Delete_Pos(3);
-            //Soldados.Delete_Pos(3);
-            //agregarSprites();
-            //actualizarXY();
+            nivel++;
 
 
 
         }
 
-        else if (Soldados.get_Data(12).posx==posx && Soldados.get_Data(12).posy==posy) {
+        else if (Soldados.get_Data(nSol).posx==posx && Soldados.get_Data(nSol).posy==posy) {
 
             /*
             cont=0;
@@ -593,18 +603,18 @@ public:
             y=0;
             */
         }
-        else if(Soldados.get_Data(12).posy!=posy && Soldados.get_Data(12).posx!=posx) {
+        else if(Soldados.get_Data(nSol).posy!=posy && Soldados.get_Data(nSol).posx!=posx) {
 
-            if(listaY[Soldados.get_Data(12).posy+1].get_Nodo(Soldados.get_Data(12).posx+1)->data.nombre=="vacio"){
-                Soldados.get_Nodo(12)->data.posx+=1;
-                Soldados.get_Nodo(12)->data.posy+=1;
+            if(listaY[Soldados.get_Data(nSol).posy+1].get_Nodo(Soldados.get_Data(nSol).posx+1)->data.nombre=="vacio"){
+                Soldados.get_Nodo(nSol)->data.posx+=1;
+                Soldados.get_Nodo(nSol)->data.posy+=1;
                 //listaY[Soldados.get_Data(3).posx+1].get_Nodo(Soldados.get_Data(3).posy+1)->data=Soldados.get_Data(3);
 
-                Soldados.get_Nodo(12)->data.con++;
+                Soldados.get_Nodo(nSol)->data.con++;
 
 
                 con++;
-                Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
+                Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
                 agregarSprites();
                 actualizarXY();
@@ -612,10 +622,10 @@ public:
                 std::cout<<std::endl;
                 return mover(posx, posy);
             }
-            else if(listaY[Soldados.get_Data(12).posy+1].get_Nodo(Soldados.get_Data(12).posx)->data.nombre=="vacio"){
-                Soldados.get_Nodo(12)->data.posy+=1;
-                Soldados.get_Nodo(12)->data.con++;
-                Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
+            else if(listaY[Soldados.get_Data(nSol).posy+1].get_Nodo(Soldados.get_Data(nSol).posx)->data.nombre=="vacio"){
+                Soldados.get_Nodo(nSol)->data.posy+=1;
+                Soldados.get_Nodo(nSol)->data.con++;
+                Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
 
 
@@ -624,10 +634,10 @@ public:
                 imprimir();
                 std::cout<<std::endl;
                 return mover(posx, posy);
-            }else if(listaY[Soldados.get_Data(12).posy].get_Nodo(Soldados.get_Data(12).posx+1)->data.nombre=="vacio"){
-                Soldados.get_Nodo(12)->data.posx+=1;
-                Soldados.get_Nodo(12)->data.con++;
-                Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
+            }else if(listaY[Soldados.get_Data(nSol).posy].get_Nodo(Soldados.get_Data(nSol).posx+1)->data.nombre=="vacio"){
+                Soldados.get_Nodo(nSol)->data.posx+=1;
+                Soldados.get_Nodo(nSol)->data.con++;
+                Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
 
 
@@ -636,46 +646,33 @@ public:
                 imprimir();
                 std::cout<<std::endl;
                 return mover(posx, posy);
-            }else if(Soldados.get_Data(12).posx==0 && listaY[Soldados.get_Data(12).posy+1].get_Nodo(Soldados.get_Data(12).posx-1)->data.nombre=="vacio"){
-                Soldados.get_Nodo(12)->data.posy+=1;
-                Soldados.get_Nodo(12)->data.posx-=1;
-                Soldados.get_Nodo(12)->data.con++;
-                Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
+            }else if(Soldados.get_Data(nSol).posx==0 && listaY[Soldados.get_Data(nSol).posy+1].get_Nodo(Soldados.get_Data(nSol).posx-1)->data.nombre=="vacio"){
+                Soldados.get_Nodo(nSol)->data.posy+=1;
+                Soldados.get_Nodo(nSol)->data.posx-=1;
+                Soldados.get_Nodo(nSol)->data.con++;
+                Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
                 agregarSprites();
                 actualizarXY();
                 imprimir();
                 std::cout<<std::endl;
                 return mover(posx, posy);
-            }else if(Soldados.get_Data(12).posx==0 && listaY[Soldados.get_Data(12).posy].get_Nodo(Soldados.get_Data(12).posx-1)->data.nombre=="vacio"){
+            }else if(Soldados.get_Data(nSol).posx==0 && listaY[Soldados.get_Data(nSol).posy].get_Nodo(Soldados.get_Data(nSol).posx-1)->data.nombre=="vacio"){
 
-                Soldados.get_Nodo(12)->data.posx-=1;
-                Soldados.get_Nodo(12)->data.con++;
-                Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
-
-                agregarSprites();
-                actualizarXY();
-                imprimir();
-                std::cout<<std::endl;
-                return mover(posx, posy);
-            }else if(Soldados.get_Data(12).posy==0 && listaY[Soldados.get_Data(12).posy-1].get_Nodo(Soldados.get_Data(12).posx)->data.nombre=="vacio"){
-
-                Soldados.get_Nodo(12)->data.posy-=1;
-                Soldados.get_Nodo(12)->data.con++;
-                Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
-
-
+                Soldados.get_Nodo(nSol)->data.posx-=1;
+                Soldados.get_Nodo(nSol)->data.con++;
+                Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
                 agregarSprites();
                 actualizarXY();
                 imprimir();
                 std::cout<<std::endl;
                 return mover(posx, posy);
-            }else if(Soldados.get_Data(12).posy==0 && listaY[Soldados.get_Data(12).posy-1].get_Nodo(Soldados.get_Data(12).posx+1)->data.nombre=="vacio"){
-                Soldados.get_Nodo(12)->data.posx+=1;
-                Soldados.get_Nodo(12)->data.posy-=1;
-                Soldados.get_Nodo(12)->data.con++;
-                Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
+            }else if(Soldados.get_Data(nSol).posy==0 && listaY[Soldados.get_Data(nSol).posy-1].get_Nodo(Soldados.get_Data(nSol).posx)->data.nombre=="vacio"){
+
+                Soldados.get_Nodo(nSol)->data.posy-=1;
+                Soldados.get_Nodo(nSol)->data.con++;
+                Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
 
 
@@ -684,11 +681,24 @@ public:
                 imprimir();
                 std::cout<<std::endl;
                 return mover(posx, posy);
-            }else if(Soldados.get_Data(12).posx==0&&Soldados.get_Data(12).posy==0 && listaY[Soldados.get_Data(12).posy-1].get_Nodo(Soldados.get_Data(12).posx-1)->data.nombre=="vacio"){
-                Soldados.get_Nodo(12)->data.posy-=1;
-                Soldados.get_Nodo(12)->data.posy-=1;
-                Soldados.get_Nodo(12)->data.con++;
-                Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
+            }else if(Soldados.get_Data(nSol).posy==0 && listaY[Soldados.get_Data(nSol).posy-1].get_Nodo(Soldados.get_Data(nSol).posx+1)->data.nombre=="vacio"){
+                Soldados.get_Nodo(nSol)->data.posx+=1;
+                Soldados.get_Nodo(nSol)->data.posy-=1;
+                Soldados.get_Nodo(nSol)->data.con++;
+                Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
+
+
+
+                agregarSprites();
+                actualizarXY();
+                imprimir();
+                std::cout<<std::endl;
+                return mover(posx, posy);
+            }else if(Soldados.get_Data(nSol).posx==0&&Soldados.get_Data(nSol).posy==0 && listaY[Soldados.get_Data(nSol).posy-1].get_Nodo(Soldados.get_Data(nSol).posx-1)->data.nombre=="vacio"){
+                Soldados.get_Nodo(nSol)->data.posy-=1;
+                Soldados.get_Nodo(nSol)->data.posy-=1;
+                Soldados.get_Nodo(nSol)->data.con++;
+                Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
 
 
@@ -705,10 +715,10 @@ public:
                 //throw new IllegalArgumentException("NO HAY CAMINO");
             }
 
-        }else if(Soldados.get_Data(12).posx==posx) {
+        }else if(Soldados.get_Data(nSol).posx==posx) {
             std::cout<<"sdasdasdwasdasdas"<<std::endl;
             return moverXsiete(posx,posy);
-        }else if(Soldados.get_Data(12).posy==posy) {
+        }else if(Soldados.get_Data(nSol).posy==posy) {
             return moverYsiete(posx,posy);
         }
         else {
@@ -719,10 +729,10 @@ public:
 
     }
     mapa& moverXsiete(int posx, int posy) {
-        if(listaY[Soldados.get_Data(12).posy+1].get_Nodo(Soldados.get_Data(12).posx)->data.nombre=="vacio"){
-            Soldados.get_Nodo(12)->data.posy+=1;
-            Soldados.get_Nodo(12)->data.con++;
-            Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
+        if(listaY[Soldados.get_Data(nSol).posy+1].get_Nodo(Soldados.get_Data(nSol).posx)->data.nombre=="vacio"){
+            Soldados.get_Nodo(nSol)->data.posy+=1;
+            Soldados.get_Nodo(nSol)->data.con++;
+            Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
 
 
@@ -731,46 +741,46 @@ public:
             imprimir();
             std::cout<<std::endl;
             return mover(posx, posy);
-        }else if(listaY[Soldados.get_Data(12).posy+1].get_Nodo(Soldados.get_Data(12).posx-1)->data.nombre=="vacio"){
-            Soldados.get_Nodo(12)->data.posy+=1;
-            Soldados.get_Nodo(12)->data.posx-=1;
-            Soldados.get_Nodo(12)->data.con++;
-            Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
+        }else if(listaY[Soldados.get_Data(nSol).posy+1].get_Nodo(Soldados.get_Data(nSol).posx-1)->data.nombre=="vacio"){
+            Soldados.get_Nodo(nSol)->data.posy+=1;
+            Soldados.get_Nodo(nSol)->data.posx-=1;
+            Soldados.get_Nodo(nSol)->data.con++;
+            Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
             agregarSprites();
             actualizarXY();
             imprimir();
             std::cout<<std::endl;
             return mover(posx, posy);
-        }else if(listaY[Soldados.get_Data(12).posy].get_Nodo(Soldados.get_Data(12).posx-1)->data.nombre=="vacio"){
+        }else if(listaY[Soldados.get_Data(nSol).posy].get_Nodo(Soldados.get_Data(nSol).posx-1)->data.nombre=="vacio"){
 
-            Soldados.get_Nodo(12)->data.posx-=1;
-            Soldados.get_Nodo(12)->data.con++;
-            Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
-
-            agregarSprites();
-            actualizarXY();
-            imprimir();
-            std::cout<<std::endl;
-            return mover(posx, posy);
-        }else if(listaY[Soldados.get_Data(12).posy-1].get_Nodo(Soldados.get_Data(12).posx-1)->data.nombre=="vacio"){
-            Soldados.get_Nodo(12)->data.posy-=1;
-            Soldados.get_Nodo(12)->data.posy-=1;
-            Soldados.get_Nodo(12)->data.con++;
-            Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
-
-
+            Soldados.get_Nodo(nSol)->data.posx-=1;
+            Soldados.get_Nodo(nSol)->data.con++;
+            Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
             agregarSprites();
             actualizarXY();
             imprimir();
             std::cout<<std::endl;
             return mover(posx, posy);
-        }else if(listaY[Soldados.get_Data(12).posy-1].get_Nodo(Soldados.get_Data(12).posx)->data.nombre=="vacio"){
+        }else if(listaY[Soldados.get_Data(nSol).posy-1].get_Nodo(Soldados.get_Data(nSol).posx-1)->data.nombre=="vacio"){
+            Soldados.get_Nodo(nSol)->data.posy-=1;
+            Soldados.get_Nodo(nSol)->data.posy-=1;
+            Soldados.get_Nodo(nSol)->data.con++;
+            Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
-            Soldados.get_Nodo(12)->data.posy-=1;
-            Soldados.get_Nodo(12)->data.con++;
-            Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
+
+
+            agregarSprites();
+            actualizarXY();
+            imprimir();
+            std::cout<<std::endl;
+            return mover(posx, posy);
+        }else if(listaY[Soldados.get_Data(nSol).posy-1].get_Nodo(Soldados.get_Data(nSol).posx)->data.nombre=="vacio"){
+
+            Soldados.get_Nodo(nSol)->data.posy-=1;
+            Soldados.get_Nodo(nSol)->data.con++;
+            Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
 
 
@@ -787,10 +797,10 @@ public:
 
     }
     mapa& moverYsiete(int posx, int posy) {
-        if(listaY[Soldados.get_Data(12).posy].get_Nodo(Soldados.get_Data(12).posx+1)->data.nombre=="vacio"){
-            Soldados.get_Nodo(12)->data.posx+=1;
-            Soldados.get_Nodo(12)->data.con++;
-            Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
+        if(listaY[Soldados.get_Data(nSol).posy].get_Nodo(Soldados.get_Data(nSol).posx+1)->data.nombre=="vacio"){
+            Soldados.get_Nodo(nSol)->data.posx+=1;
+            Soldados.get_Nodo(nSol)->data.con++;
+            Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
 
 
@@ -799,11 +809,11 @@ public:
             imprimir();
             std::cout<<std::endl;
             return mover(posx, posy);
-        }else if(Soldados.get_Data(12).posy==0 && listaY[Soldados.get_Data(12).posy-1].get_Nodo(Soldados.get_Data(12).posx+1)->data.nombre=="vacio"){
-            Soldados.get_Nodo(12)->data.posx+=1;
-            Soldados.get_Nodo(12)->data.posy-=1;
-            Soldados.get_Nodo(12)->data.con++;
-            Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
+        }else if(Soldados.get_Data(nSol).posy==0 && listaY[Soldados.get_Data(nSol).posy-1].get_Nodo(Soldados.get_Data(nSol).posx+1)->data.nombre=="vacio"){
+            Soldados.get_Nodo(nSol)->data.posx+=1;
+            Soldados.get_Nodo(nSol)->data.posy-=1;
+            Soldados.get_Nodo(nSol)->data.con++;
+            Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
 
 
@@ -812,24 +822,11 @@ public:
             imprimir();
             std::cout<<std::endl;
             return mover(posx, posy);
-        }else if(Soldados.get_Data(12).posy==0 && listaY[Soldados.get_Data(12).posy-1].get_Nodo(Soldados.get_Data(12).posx)->data.nombre=="vacio"){
+        }else if(Soldados.get_Data(nSol).posy==0 && listaY[Soldados.get_Data(nSol).posy-1].get_Nodo(Soldados.get_Data(nSol).posx)->data.nombre=="vacio"){
 
-            Soldados.get_Nodo(12)->data.posy-=1;
-            Soldados.get_Nodo(12)->data.con++;
-            Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
-
-
-
-            agregarSprites();
-            actualizarXY();
-            imprimir();
-            std::cout<<std::endl;
-            return mover(posx, posy);
-        }else if(listaY[Soldados.get_Data(12).posy-1].get_Nodo(Soldados.get_Data(12).posx)->data.nombre=="vacio"){
-
-            Soldados.get_Nodo(12)->data.posy-=1;
-            Soldados.get_Nodo(12)->data.con++;
-            Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
+            Soldados.get_Nodo(nSol)->data.posy-=1;
+            Soldados.get_Nodo(nSol)->data.con++;
+            Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
 
 
@@ -838,11 +835,11 @@ public:
             imprimir();
             std::cout<<std::endl;
             return mover(posx, posy);
-        }else if(Soldados.get_Data(12).posx==0&&Soldados.get_Data(12).posy==0 && listaY[Soldados.get_Data(12).posy-1].get_Nodo(Soldados.get_Data(12).posx-1)->data.nombre=="vacio"){
-            Soldados.get_Nodo(12)->data.posy-=1;
-            Soldados.get_Nodo(12)->data.posy-=1;
-            Soldados.get_Nodo(12)->data.con++;
-            Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
+        }else if(listaY[Soldados.get_Data(nSol).posy-1].get_Nodo(Soldados.get_Data(nSol).posx)->data.nombre=="vacio"){
+
+            Soldados.get_Nodo(nSol)->data.posy-=1;
+            Soldados.get_Nodo(nSol)->data.con++;
+            Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
 
 
@@ -851,11 +848,24 @@ public:
             imprimir();
             std::cout<<std::endl;
             return mover(posx, posy);
-        }else if(Soldados.get_Data(12).posx==0 && listaY[Soldados.get_Data(12).posy].get_Nodo(Soldados.get_Data(12).posx-1)->data.nombre=="vacio"){
+        }else if(Soldados.get_Data(nSol).posx==0&&Soldados.get_Data(nSol).posy==0 && listaY[Soldados.get_Data(nSol).posy-1].get_Nodo(Soldados.get_Data(nSol).posx-1)->data.nombre=="vacio"){
+            Soldados.get_Nodo(nSol)->data.posy-=1;
+            Soldados.get_Nodo(nSol)->data.posy-=1;
+            Soldados.get_Nodo(nSol)->data.con++;
+            Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
-            Soldados.get_Nodo(12)->data.posx-=1;
-            Soldados.get_Nodo(12)->data.con++;
-            Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]=(Soldados.get_Nodo(12)->data.posx)*10+(Soldados.get_Nodo(12)->data.posy);
+
+
+            agregarSprites();
+            actualizarXY();
+            imprimir();
+            std::cout<<std::endl;
+            return mover(posx, posy);
+        }else if(Soldados.get_Data(nSol).posx==0 && listaY[Soldados.get_Data(nSol).posy].get_Nodo(Soldados.get_Data(nSol).posx-1)->data.nombre=="vacio"){
+
+            Soldados.get_Nodo(nSol)->data.posx-=1;
+            Soldados.get_Nodo(nSol)->data.con++;
+            Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]=(Soldados.get_Nodo(nSol)->data.posx)*10+(Soldados.get_Nodo(nSol)->data.posy);
 
             agregarSprites();
             actualizarXY();
@@ -874,18 +884,18 @@ public:
 
 
     }mapa& goToThePast(int posx,int posy) {
-        if(Soldados.get_Nodo(12)->data.con==0){
+        if(Soldados.get_Nodo(nSol)->data.con==0){
             std::cout<<"NO HAY CAMINO"<<std::endl;
         }else{
 
-            Soldados.get_Nodo(12)->data.posx=Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]%10;
-            Soldados.get_Nodo(12)->data.posy=Soldados.get_Nodo(12)->data.visitados[Soldados.get_Nodo(12)->data.con]/10;
-            listaY[Soldados.get_Nodo(12)->data.posy].get_Nodo(Soldados.get_Nodo(12)->data.posx)->data=vacio;
+            Soldados.get_Nodo(nSol)->data.posx=Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]%10;
+            Soldados.get_Nodo(nSol)->data.posy=Soldados.get_Nodo(nSol)->data.visitados[Soldados.get_Nodo(nSol)->data.con]/10;
+            listaY[Soldados.get_Nodo(nSol)->data.posy].get_Nodo(Soldados.get_Nodo(nSol)->data.posx)->data=vacio;
 
             agregarSprites();
             actualizarXY();
 
-            Soldados.get_Nodo(12)->data.con--;
+            Soldados.get_Nodo(nSol)->data.con--;
             imprimir();
             return mover(posx,posy);
         }

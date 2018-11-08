@@ -28,19 +28,23 @@ public:
         nombre = name;
         elemento = power;
     }
-    void digievolucion(){
+    void digievolucion(char type){
 
-        if (elemento == 'x'){
+        if (type == 'x'){
             elemento = 'v';
             stamina = 100;
         }
-        else if (elemento == 'd'){
+        else if (type == 'd'){
             elemento = 'x';
             stamina = 100;
         }
-        else{
+        else if (type =='v'){
             elemento = 'd';
             stamina = 100;
+        }else {
+            elemento = type;
+            stamina=100;
+
         }
     }
 
@@ -133,11 +137,45 @@ public:
 
             }
         }
+        else if (elemento == 'n'){
+            if (tipo == 'x'){
+                stamina = stamina - 25;
+                if (stamina <= 0){
+                    return 0;
+                }
+                else{
+                    return stamina;
+                }
+            }
+            else if (tipo == 'd'){
+                stamina = stamina - 25;
+                if (stamina <= 0){
+                    return 0;
+                }
+                else{
+                    return stamina;
+                }
+            }
+            else{
+                stamina = stamina -25;
+                if (stamina <= 0){
+                    return 0;
+                }
+                else{
+                    return stamina;
+                }
+
+            }
+        }
     }
 
     void atacar(int number, char type){
         switch (number){
             case 1:
+                if (elemento == 'n'){
+                    stamina = 0;
+                    break;
+                }
                 switch (type){
                     case 'v':
                         stamina = stamina - (5*5);
@@ -147,16 +185,27 @@ public:
                     case 'x':
                         stamina = stamina - 5*3;
                         std::cout<<stamina;
+                        break;
 
                     case 'd':
                         stamina = stamina - 5*3;
                         std::cout<<stamina;
+                        break;
+
+                    case 'n':
+                        stamina = stamina - 100;
+                        std::cout<<stamina;
+                        break;
 
                 }
                 break;
 
 
             case 2:
+                if (elemento == 'n'){
+                    stamina = 0;
+                    break;
+                }
                 switch (type){
                     case 'v':
                         stamina = stamina - 5*3;
@@ -170,10 +219,18 @@ public:
                     case 'd':
                         stamina = stamina - 5*3;
                         break;
+
+                    case 'n':
+                        stamina = stamina - 100;
+                        break;
                 }
                 break;
 
             case 3:
+                if (elemento == 'n'){
+                    stamina = 0;
+                    break;
+                }
                 switch (type){
                     case 'v':
                         stamina = stamina - 5*3;
@@ -186,10 +243,18 @@ public:
                     case 'd':
                         stamina = stamina - 5*10;
                         break;
+
+                    case 'n':
+                        stamina = stamina - 100;
+                        break;
                 }
                 break;
 
             case 4:
+                if (elemento == 'n'){
+                    stamina = 0;
+                    break;
+                }
                 switch (type){
                     case 'v':
                         stamina = stamina - 5*5;
@@ -203,10 +268,19 @@ public:
                         stamina = stamina - 5*7;
                         break;
 
+                    case 'n':
+                        stamina = stamina - 100;
+                        std::cout<<stamina;
+                        break;
+
                 }
                 break;
 
             case 5:
+                if (elemento == 'n'){
+                    stamina = 0;
+                    break;
+                }
                 switch (type){
                     case 'v':
                         stamina = stamina - 5*10;
@@ -218,12 +292,21 @@ public:
 
                     case 'd':
                         stamina = stamina - 5*3;
+                        break;
+
+                    case 'n':
+                        stamina = stamina - 100;
+                        std::cout<<stamina;
                         break;
 
                 }
                 break;
 
             case 6:
+                if (elemento == 'n'){
+                    stamina = 0;
+                    break;
+                }
                 switch (type){
                     case 'v':
                         stamina = stamina - 5*3;
@@ -237,10 +320,19 @@ public:
                         stamina = stamina - 5*5;
                         break;
 
+                    case 'n':
+                        stamina = stamina - 100;
+                        std::cout<<stamina;
+                        break;
+
                 }
                 break;
 
             case 7:
+                if (elemento == 'n'){
+                    stamina = 0;
+                    break;
+                }
                 switch (type){
                     case 'v':
                         stamina = stamina - 5*3;
@@ -254,10 +346,19 @@ public:
                         stamina = stamina - 5*10;
                         break;
 
+                    case 'n':
+                        stamina = stamina - 100;
+                        std::cout<<stamina;
+                        break;
+
                 }
                 break;
 
             case 8:
+                if (elemento == 'n'){
+                    stamina = 0;
+                    break;
+                }
                 switch (type){
                     case 'v':
                         stamina = stamina - 5*15;
@@ -271,10 +372,19 @@ public:
                         stamina = stamina - 5*8;
                         break;
 
+                    case 'n':
+                        stamina = stamina - 100;
+                        std::cout<<stamina;
+                        break;
+
                 }
                 break;
 
             case 9:
+                if (elemento == 'n'){
+                    stamina = 0;
+                    break;
+                }
                 switch (type){
                     case 'v':
                         stamina = stamina - 5*10;
@@ -288,10 +398,19 @@ public:
                         stamina = stamina - 5*10;
                         break;
 
+                    case 'n':
+                        stamina = stamina - 100;
+                        std::cout<<stamina;
+                        break;
+
                 }
                 break;
 
             case 10:
+                if (elemento == 'n'){
+                    stamina = 0;
+                    break;
+                }
                 switch (type){
                     case 'v':
                         stamina = stamina - 5*2;
@@ -304,10 +423,19 @@ public:
                     case 'd':
                         stamina = stamina - 5*10;
                         break;
+
+                    case 'n':
+                        stamina = stamina - 100;
+                        std::cout<<stamina;
+                        break;
                 }
                 break;
 
             case 11:
+                if (elemento == 'n'){
+                    stamina = 0;
+                    break;
+                }
                 switch (type){
                     case 'v':
                         stamina = stamina - 5*10;
@@ -319,12 +447,21 @@ public:
 
                     case 'd':
                         stamina = stamina - 5*10;
+                        break;
+
+                    case 'n':
+                        stamina = stamina - 100;
+                        std::cout<<stamina;
                         break;
 
                 }
                 break;
 
             case 12:
+                if (elemento == 'n'){
+                    stamina = 0;
+                    break;
+                }
                 switch (type){
                     case 'v':
                         stamina = stamina - 5*15;
@@ -336,6 +473,11 @@ public:
 
                     case 'd':
                         stamina = stamina - 5*15;
+                        break;
+
+                    case 'n':
+                        stamina = stamina - 100;
+                        std::cout<<stamina;
                         break;
                 }
                 break;

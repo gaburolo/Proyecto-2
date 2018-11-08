@@ -1,11 +1,39 @@
 //
 // Created by gaburolo on 08/11/18.
 //
-
+#ifndef PRUEBAS22_ATACKWINDOW_H
+#define PRUEBAS22_ATACKWINDOW_H
 #include "iostream"
-#include "AtackWindow.h"
-#include "FightMenu.h"
+
+#include "FightMenu.cpp"
 #include "SFML/Graphics.hpp"
+
+
+
+#include "Sprite.cpp"
+#include "SFML/Graphics.hpp"
+
+
+class AtackWindow {
+
+
+public:
+
+    AtackWindow();
+    ~AtackWindow();
+    int drawAtackWindow(Sprite soldado, Sprite enemigo, int level);
+
+public:
+
+    sf::Font font;
+    sf::Text staminaSoldado;
+    sf::Text staminaEnemigo;
+    int ventana;
+
+
+};
+
+
 
 
 
@@ -179,21 +207,25 @@ int AtackWindow::drawAtackWindow(Sprite soldado, Sprite enemigo, int level){
             windowAtack.draw(staminaEnemigo);
             windowAtack.display();
             sf::sleep(sf::microseconds(1000000));
-            if (enemigo.getStamina() == 0){
-                enemigo.digievolucion();
-                std::cout<<enemigo.getTipo();
-            }
-            windowAtack.close();
-
             if (ventana == 0){
+                windowAtack.close();
                 return 2;
             }
             else if (enemigo.getStamina() == 0){
+                enemigo.digievolucion(soldado.getTipo());
+                std::cout<<enemigo.getTipo();
+                windowAtack.close();
                 return 1;
             }
             else {
+                enemigo.digievolucion(soldado.getTipo());
+                windowAtack.close();
                 return 3;
             }
+
+
+
+
 
         } else{
             windowAtack.clear();
@@ -214,3 +246,4 @@ int AtackWindow::drawAtackWindow(Sprite soldado, Sprite enemigo, int level){
     }
 
 }
+#endif //PRUEBAS22_ATACKWINDOW_H
