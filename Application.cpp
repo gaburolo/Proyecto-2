@@ -168,9 +168,9 @@ public:
                     num2=sf::Mouse::getPosition().y;
                     mp.obtenerXY(num, num2, x, y);
                     std::cout<<mp.listaY[y].get_Data(x).nombre<<std::endl;
-                    moveDigi();
-
-                    //mp.deteccionE();
+                    mp.mover(x,y);
+                    draw();
+                    ////mp.deteccionE();
                     //std::cout<<"PRESIONANDO X: "<<sf::Mouse::getPosition().x<<" Y: "<<sf::Mouse::getPosition().y<<std::endl;
 
 
@@ -212,8 +212,6 @@ public:
             draw();
             o++;
         }
-
-
     }
 
 public:
