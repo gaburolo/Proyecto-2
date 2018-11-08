@@ -5,15 +5,15 @@
 
 
 #include "iostream"
-#include "Application.h"
+#include "Application3.h"
 #include <SFML/Graphics.hpp>
-#include "mapa.cpp"
+#include "mapa3.cpp"
 
-class Application {
+class Application3 {
 private:
 
 
-    mapa mp;
+    mapa3 mp;
     int nSol=0;
     int movimientos=0;
 
@@ -67,7 +67,7 @@ private:
 
 
 public:
-    Application() {
+    Application3() {
 
         //mp.imprimir();
 
@@ -249,7 +249,7 @@ public:
         // digiSpriteVa.setPosition(100,100);
 
       window.display();
-    }mapa& mover(int posx, int posy) {
+    }mapa3& mover(int posx, int posy) {
 
         mp.deteccionE();
         sf::sleep(sf::milliseconds(200));
@@ -458,7 +458,7 @@ public:
 
 
     }
-    mapa& moverXsiete(int posx, int posy) {
+    mapa3& moverXsiete(int posx, int posy) {
         if(mp.listaY[mp.Soldados.get_Data(nSol).posy+1].get_Nodo(mp.Soldados.get_Data(nSol).posx)->data.nombre=="vacio"){
             mp.Soldados.get_Nodo(nSol)->data.posy+=1;
             mp.Soldados.get_Nodo(nSol)->data.con++;
@@ -532,7 +532,7 @@ public:
         }
 
     }
-    mapa& moverYsiete(int posx, int posy) {
+    mapa3& moverYsiete(int posx, int posy) {
         if(mp.listaY[mp.Soldados.get_Data(nSol).posy].get_Nodo(mp.Soldados.get_Data(nSol).posx+1)->data.nombre=="vacio"){
             mp.Soldados.get_Nodo(nSol)->data.posx+=1;
             mp.Soldados.get_Nodo(nSol)->data.con++;
