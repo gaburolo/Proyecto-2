@@ -15,6 +15,7 @@ private:
 
     mapa mp;
     int nSol=0;
+    int movimientos=0;
 
     //Application* app=this;
     int i = 0;
@@ -237,16 +238,57 @@ public:
 
       window.display();
     }mapa& mover(int posx, int posy) {
-        //deteccionE();
-        mp.Soldados.get_Nodo(nSol)->data.visitados[0]=00;
-        if(mp.Soldados.get_Data(nSol).posx==14 && mp.Soldados.get_Data(nSol).posy==14){
+
+        mp.deteccionE();
+        sf::sleep(sf::milliseconds(200));
+
+        movimientos++;
+        if(nSol==15){
+            nSol=0;
+            return mp;
+        }
+        else if(movimientos!=20)
+        {
+                mp.Soldados.get_Nodo(nSol)->data.visitados[0]=00;
+                for(int ptr=nSol-1;ptr>=0;ptr--){
+                    if (nSol!=0 && mp.Soldados.get_Data(nSol).posx==mp.Soldados.get_Data(ptr).posx && mp.Soldados.get_Data(nSol).posy+1==mp.Soldados.get_Data(ptr).posy){
+                        nSol++;
+                        movimientos = 0;
+                        return mover(posx,posy);
+                    }else if (nSol!=0 && mp.Soldados.get_Data(nSol).posy==mp.Soldados.get_Data(ptr).posy && mp.Soldados.get_Data(nSol).posx+1==mp.Soldados.get_Data(ptr).posx){
+                        nSol++;
+                        movimientos = 0;
+                        return mover(posx,posy);
+                    }
+                }
+
+        }else{
+            nSol++;
+            movimientos = 0;
+            return mover(posx,posy);
+        }
+        if(mp.Soldados.get_Nodo(nSol)->data.nombre!="soldado"){
+            nSol++;
+            movimientos = 0;
+            return mover(posx,posy);
+        }else if (nSol!=0 && mp.Soldados.get_Data(nSol).posx==mp.Soldados.get_Data(nSol-1).posx && mp.Soldados.get_Data(nSol).posy+1==mp.Soldados.get_Data(nSol-1).posy){
+            nSol++;
+            movimientos = 0;
+            return mover(posx,posy);
+        }else if (nSol!=0 && mp.Soldados.get_Data(nSol).posy==mp.Soldados.get_Data(nSol-1).posy && mp.Soldados.get_Data(nSol).posx+1==mp.Soldados.get_Data(nSol-1).posx){
+            nSol++;
+            movimientos = 0;
+            return mover(posx,posy);
+        }
+        else if(mp.Soldados.get_Data(nSol).posx==14 && mp.Soldados.get_Data(nSol).posy==14){
 
             mp.vacio.posx=mp.Soldados.get_Nodo(3)->data.posx;
             mp.vacio.posy=mp.Soldados.get_Nodo(3)->data.posy;
             mp.Soldados.get_Nodo(3)->data=mp.vacio;
 
-            mp.reinicio();
+
             mp.nivel++;
+            mp.reinicio();
             if(mp.nivel==6){
                 std::cout<<"your WIN"<<std::endl;
             }
@@ -256,6 +298,13 @@ public:
         }
 
         else if (mp.Soldados.get_Data(nSol).posx==posx && mp.Soldados.get_Data(nSol).posy==posy) {
+            nSol++;
+            movimientos = 0;
+            if(nSol!=15){
+                return mover(posx,posy);
+            }else{
+
+            }
 
             /*
             cont=0;
