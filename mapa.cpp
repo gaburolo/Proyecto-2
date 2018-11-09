@@ -435,7 +435,7 @@ public:
                         int value;
 
                         value = atackWindow.drawAtackWindow(Soldados.get_Nodo(j)->data,EnemigosT[nivel].get_Nodo(contador)->data,nivel);
-
+                        std::cout<<value;
                         EnemigosT[nivel].get_Nodo(contador)->data.digievolucion(Soldados.get_Nodo(j)->data.elemento);
                         if(value==1){
                             EnemigosT[nivel+1].get_Nodo(contador)->data=EnemigosT[nivel].get_Nodo(contador)->data;

@@ -625,7 +625,7 @@ public:
         }
 
 
-    }mapa& goToThePast(int posx,int posy) {
+    }mapa3& goToThePast(int posx,int posy) {
         if(mp.Soldados.get_Nodo(nSol)->data.con==0){
             std::cout<<"NO HAY CAMINO"<<std::endl;
         }else{

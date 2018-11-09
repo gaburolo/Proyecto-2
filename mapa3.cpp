@@ -195,7 +195,22 @@ private:
             EnemigosT[c].FinalInsert(ene18);
             EnemigosT[c].FinalInsert(ene19);
             EnemigosT[c].FinalInsert(ene20);
-
+            EnemigosT[c].FinalInsert(ene21);
+            EnemigosT[c].FinalInsert(ene22);
+            EnemigosT[c].FinalInsert(ene23);
+            EnemigosT[c].FinalInsert(ene24);
+            EnemigosT[c].FinalInsert(ene25);
+            EnemigosT[c].FinalInsert(ene26);
+            EnemigosT[c].FinalInsert(ene27);
+            EnemigosT[c].FinalInsert(ene28);
+            EnemigosT[c].FinalInsert(ene29);
+            EnemigosT[c].FinalInsert(ene30);
+            EnemigosT[c].FinalInsert(ene31);
+            EnemigosT[c].FinalInsert(ene32);
+            EnemigosT[c].FinalInsert(ene33);
+            EnemigosT[c].FinalInsert(ene34);
+            EnemigosT[c].FinalInsert(ene35);
+            EnemigosT[c].FinalInsert(ene36);
         }
 
     }

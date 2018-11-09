@@ -49,6 +49,49 @@ int AtackWindow::drawAtackWindow(Sprite soldado, Sprite enemigo, int level){
 
     sf::RenderWindow windowAtack(sf::VideoMode(1024,768), "ATACK");
 
+    sf::Texture fondoTexture;
+    sf::Sprite fondoSprite;
+
+    fondoTexture.loadFromFile("/home/gaburolo/CLionProjects/pruebas22/image/fondo.png");
+    fondoSprite.setTexture(fondoTexture);
+
+    sf::Texture digiTextureVa;
+    sf::Sprite digiSpriteVa;
+
+    sf::Texture digiTextureVi;
+    sf::Sprite digiSpriteVi;
+
+    sf::Texture digiTextureDa;
+    sf::Sprite digiSpriteDa;
+
+    digiTextureVa.loadFromFile("/home/gaburolo/CLionProjects/pruebas22/image/omnimon.png");
+    digiSpriteVa.setTexture(digiTextureVa);
+    digiTextureVi.loadFromFile("/home/gaburolo/CLionProjects/pruebas22/image/gallantmon.png");
+    digiSpriteVi.setTexture(digiTextureVi);
+    digiTextureDa.loadFromFile("/home/gaburolo/CLionProjects/pruebas22/image/dynasmon.png");
+    digiSpriteDa.setTexture(digiTextureDa);
+
+    sf::Texture enemyTexture;
+    sf::Sprite enemySprite;
+
+    sf::Texture enemyTextureVa;
+    sf::Sprite enemySpriteVa;
+
+    sf::Texture enemyTextureVi;
+    sf::Sprite enemySpriteVi;
+
+    sf::Texture enemyTextureDa;
+    sf::Sprite enemySpriteDa;
+
+    enemyTexture.loadFromFile("/home/gaburolo/CLionProjects/pruebas22/image/agumon.png");
+    enemySprite.setTexture(enemyTexture);
+    enemyTextureVa.loadFromFile("/home/gaburolo/CLionProjects/pruebas22/image/greymon.png");
+    enemySpriteVa.setTexture(enemyTextureVa);
+    enemyTextureVi.loadFromFile("/home/gaburolo/CLionProjects/pruebas22/image/skullgreymon.png");
+    enemySpriteVi.setTexture(enemyTextureVi);
+    enemyTextureDa.loadFromFile("/home/gaburolo/CLionProjects/pruebas22/image/seadramon.png");
+    enemySpriteDa.setTexture(enemyTextureDa);
+
     sf::RectangleShape shape1(sf::Vector2f(soldado.getStamina(),20));
     shape1.setFillColor(sf::Color::Green);
     shape1.setPosition(250,50);
@@ -196,6 +239,23 @@ int AtackWindow::drawAtackWindow(Sprite soldado, Sprite enemigo, int level){
             shape1.setSize(sf::Vector2f(soldado.getStamina(),20));
             shape3.setSize(sf::Vector2f(enemigo.getStamina(),20));
             windowAtack.clear();
+            fondoSprite.setPosition(180,50);
+            windowAtack.draw(fondoSprite);
+            if (soldado.getTipo() == 'x'){
+                digiSpriteVi.setPosition(300, 400);
+                windowAtack.draw(digiSpriteVi);
+
+            }
+            else if (soldado.getTipo() == 'd'){
+                digiSpriteDa.setPosition(300,400);
+                windowAtack.draw(digiSpriteDa);
+
+            }
+            else if (soldado.getTipo() == 'v'){
+                digiSpriteVa.setPosition(300,400);
+                windowAtack.draw(digiSpriteVa);
+
+            }
             fightMenu.draw(windowAtack);
             windowAtack.draw(shape2);
             windowAtack.draw(shape1);
@@ -206,22 +266,27 @@ int AtackWindow::drawAtackWindow(Sprite soldado, Sprite enemigo, int level){
             windowAtack.draw(staminaSoldado);
             windowAtack.draw(staminaEnemigo);
             windowAtack.display();
-            sf::sleep(sf::microseconds(1000000));
-            if (ventana == 0){
+
+            if(ventana==0 && enemigo.getStamina() == 0){
+                sf::sleep(sf::microseconds(1000000));
+                enemigo.digievolucion(soldado.getTipo());
+                windowAtack.close();
+                return 3;
+            }
+
+            else if (ventana == 0){
+                sf::sleep(sf::microseconds(1000000));
                 windowAtack.close();
                 return 2;
             }
             else if (enemigo.getStamina() == 0){
+                sf::sleep(sf::microseconds(1000000));
                 enemigo.digievolucion(soldado.getTipo());
                 std::cout<<enemigo.getTipo();
                 windowAtack.close();
                 return 1;
             }
-            else {
-                enemigo.digievolucion(soldado.getTipo());
-                windowAtack.close();
-                return 3;
-            }
+
 
 
 
@@ -229,6 +294,47 @@ int AtackWindow::drawAtackWindow(Sprite soldado, Sprite enemigo, int level){
 
         } else{
             windowAtack.clear();
+            fondoSprite.setPosition(180,50);
+            windowAtack.draw(fondoSprite);
+            if (enemigo.getTipo() == 'n'){
+                enemySprite.setPosition(640, 400);
+                windowAtack.draw(enemySprite);
+
+            }
+            else if (enemigo.getTipo() == 'x'){
+                enemySpriteVi.setPosition(640, 400);
+                windowAtack.draw(enemySpriteVi);
+
+            }
+            else if (enemigo.getTipo() == 'd'){
+                enemySpriteDa.setPosition(640,400);
+                windowAtack.draw(enemySpriteDa);
+
+            }
+            else if (enemigo.getTipo() == 'v'){
+                enemySpriteVa.setPosition(640,400);
+                windowAtack.draw(enemySpriteVa);
+
+            }
+
+            if (soldado.getTipo() == 'x'){
+                digiSpriteVi.setPosition(300, 400);
+                windowAtack.draw(digiSpriteVi);
+
+            }
+            else if (soldado.getTipo() == 'd'){
+                digiSpriteDa.setPosition(300,400);
+                windowAtack.draw(digiSpriteDa);
+
+            }
+            else if (soldado.getTipo() == 'v'){
+                digiSpriteVa.setPosition(300,400);
+                windowAtack.draw(digiSpriteVa);
+
+            }
+
+
+
             fightMenu.draw(windowAtack);
             windowAtack.draw(shape2);
             windowAtack.draw(shape1);

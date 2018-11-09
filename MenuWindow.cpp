@@ -19,9 +19,15 @@
 class MenuWindow {
 
 public:
-
+    /**
+     * Constructor desctructor
+     */
     MenuWindow();
     ~MenuWindow();
+    /**
+     *
+     * @return
+     */
     int dramMenuWindow();
 
 };
@@ -34,6 +40,7 @@ MenuWindow::~MenuWindow() {}
 int MenuWindow::dramMenuWindow() {
 
     sf::RenderWindow window(sf::VideoMode(1024,768), "DIGIMON");
+    
 
 
     Menu menu(window.getSize().x, window.getSize().y);
@@ -62,19 +69,22 @@ int MenuWindow::dramMenuWindow() {
                             switch (menu.GetPressedItem()){
                                 case 0:{
                                     std::cout<<"facil"<<std::endl;
-                                    auto*app = new Application();
+                                    window.close();
+                                    auto *app = new Application();
 
                                     break;
                                 }
                                 case 1:{
                                     std::cout<<"normal"<<std::endl;
-                                    auto*app = new Application2();
+                                    window.close();
+                                    auto *app = new Application2();
 
                                     break;
                                 }
                                 case 2:{
                                     std::cout<<"dificil"<<std::endl;
-                                    auto*app = new Application3();
+                                    window.close();
+                                    auto *app = new Application3();
                                     break;
                                 }
                                 case 3: {

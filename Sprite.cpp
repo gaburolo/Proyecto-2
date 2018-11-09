@@ -257,15 +257,15 @@ public:
                 }
                 switch (type){
                     case 'v':
-                        stamina = stamina - 5*5;
+                        stamina = stamina - 100;
                         break;
 
                     case 'x':
-                        stamina = stamina - 5*10;
+                        stamina = stamina - 100;
                         break;
 
                     case 'd':
-                        stamina = stamina - 5*7;
+                        stamina = stamina - 100;
                         break;
 
                     case 'n':
